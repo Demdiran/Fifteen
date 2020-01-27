@@ -13,7 +13,7 @@ public class StoneTest{
         assert(v == 1);
     }
 
-//East neighbour generation--------------------
+//East neighbour generation------------------------------------------------------
 
     @Test
     public void TestEastNeighbour(){
@@ -74,7 +74,7 @@ public class StoneTest{
 
     }
 
-//South neighbour generation------------------
+//South neighbour generation------------------------------------------------------
 
     @Test
     public void TestSouthNeighbour(){
@@ -135,7 +135,7 @@ public class StoneTest{
 
     }
 
-//Column connection
+//Column connection------------------------------------------------------
 
     @Test
     public void TestStone11IsStone11(){
@@ -161,7 +161,7 @@ public class StoneTest{
         assert(s7 == s7_2);
     }
 
-//North neighbour connection------------------
+//North neighbour connection------------------------------------------------------
 
     @Test
     public void TestNorthNeighbour1(){
@@ -189,7 +189,7 @@ public class StoneTest{
         assert(stone2 == stone2_2);
     }
 
-//West neighbour connection
+//West neighbour connection------------------------------------------------------
 
     @Test
     public void TestWestNeighbour1(){
@@ -217,7 +217,7 @@ public class StoneTest{
         assert(stone5 == stone5_2);
     }
 
-//Mixed neighbour tests
+//Mixed neighbour tests------------------------------------------------------
 
     @Test
     public void TestNeighbourMixed1(){
@@ -236,5 +236,41 @@ public class StoneTest{
         Stone stone11_1 = stone15.getNorth();
         Stone stone11_2 = stone12.getWest();
         assert(stone11_1 == stone11_2);
+    }
+
+//Doing a move------------------------------------------------------
+
+    @Test
+    public void TestValidMoveMovedStone1(){
+        Stone stone1 = new Stone();
+        stone1.doMove(2,3);
+        Stone bottomRight = stone1.getFromCoordinate(3, 3);
+        assert(bottomRight.getValue() == 15);       
+    }
+    
+    @Test
+    public void TestValidMoveMovedStone2(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3,2);
+        Stone bottomRight = stone1.getFromCoordinate(3, 3);
+        assert(bottomRight.getValue() == 12);       
+    }
+    
+    @Test
+    public void TestValidMoveMovedStone3(){
+        Stone stone1 = new Stone();
+        stone1.doMove(2,3);
+        stone1.doMove(3, 3);
+        Stone stone2_3 = stone1.getFromCoordinate(2, 3);
+        assert(stone2_3.getValue() == 15);
+    }
+    
+    @Test
+    public void TestValidMoveMovedStone4(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3,2);
+        stone1.doMove(3, 3);
+        Stone stone3_2 = stone1.getFromCoordinate(3, 2);
+        assert(stone3_2.getValue() == 12);
     }
 }

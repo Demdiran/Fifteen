@@ -1,7 +1,8 @@
 package nl.sogyo.fifteen;
 
+
 public class Stone{
-    private final int value;
+    private int value;
     private Stone north;
     private Stone east;
     private Stone south;
@@ -60,7 +61,7 @@ public class Stone{
         return this.west;
     }
 
-    public void setWest(Stone west){
+    private void setWest(Stone west){
         this.west = west;
         if(this.east != null){
             this.east.setWest(this);
@@ -78,6 +79,10 @@ public class Stone{
         if(this.east != null){
             this.east.setWest(this);
         }
+    }
+
+    public void doMove(int x, int y){
+        getFromCoordinate(x, y).move();
     }
 
     public Stone getFromCoordinate(int x, int y){
@@ -106,6 +111,26 @@ public class Stone{
         else{
             throw new OutOfBoardException("Tried to acces stone too much to the south.");
         }
+    }
+
+    private void move(){
+        if(this.north != null && this.north.getValue() == 16){
+            this.north.value = this.value;
+            this.value = 16;
+        }else if(this.west != null && this.west.getValue() == 16){
+            this.west.value = this.value;
+            this.value = 16;
+        }else if(this.south != null && this.south.getValue() == 16){
+            this.south.value = this.value;
+            this.value = 16;
+        }else if(this.east != null && this.east.getValue() == 16){
+            this.east.value = this.value;
+            this.value = 16;
+        }
+        else{
+            throw new RuntimeException();
+        }
+
     }
 
 }
