@@ -7,9 +7,6 @@ public class Stone{
     private Stone south;
     private Stone west;
     public static void main(String[] args){
-        Stone s = new Stone();
-        System.out.println(s.getStepsEast(2).getStepsSouth(2).getValue());
-        System.out.println(s.getStepsSouth(2).getStepsEast(2).getValue());
     }
     public Stone(){
         //System.out.println("Created stone with value: " + 1);
