@@ -135,7 +135,7 @@ public class StoneTest{
 
     }
 
-//Column connection
+//Column connection------------------------------
 
     @Test
     public void TestStone11IsStone11(){
@@ -160,4 +160,16 @@ public class StoneTest{
         Stone s7_2 = s1.getEast().getSouth().getEast();
         assert(s7 == s7_2);
     }
+
+//North connection-------------------------------
+
+    @Test
+    public void TestNorthNeighbour(){
+        Stone s1 = new Stone();
+        Stone s6 = s1.getFromCoordinate(1, 1);
+        Stone s2 = s6.getNorth();
+        assert(s2.getValue() == 2);
+    }
+
+//West connection-------------------------------------
 }

@@ -4,6 +4,7 @@ public class Stone{
     private final int value;
     private Stone east;
     private Stone south;
+    private Stone north;
     public static void main(String[] args){
         Stone s = new Stone();
         System.out.println(s.getStepsEast(2).getStepsSouth(2).getValue());
@@ -12,30 +13,27 @@ public class Stone{
     public Stone(){
         //System.out.println("Created stone with value: " + 1);
         value = 1;
-        east = new Stone(2);
-        south = new Stone(5, this.east.south);
+        east = new Stone(2, null, null);
+        south = new Stone(5, this, this.east.south);
     }
-    public Stone(int v){
+    public Stone(int v, Stone northNeighbour, Stone eastNeighbour){
         //System.out.println("Created stone with value: " + v);
         value = v;
-        if(v % 4 != 0){
-            east = new Stone(v + 1);
+        if(northNeighbour != null){
+            north = northNeighbour;        
+        }
+        if(eastNeighbour != null){
+            east = eastNeighbour;
+        }else if(v % 4 != 0){
+            east = new Stone(v + 1, null, null);
         }
         if((v-1) / 4 < 3){
             if(east == null){
-                south = new Stone(v + 4);
+                south = new Stone(v + 4, this, null);
             }
             else{
-                south = new Stone(v + 4, this.east.south);
+                south = new Stone(v + 4, this, this.east.south);
             }
-        }
-    }
-    public Stone(int v, Stone eastNeighbour){
-        //System.out.println("Created stone with value: " + v);
-        value = v;
-        east = eastNeighbour;
-        if(v / 4 < 3){
-            south = new Stone(v + 4, this.east.south);
         }
     }
 
@@ -49,6 +47,10 @@ public class Stone{
 
     public Stone getSouth(){
         return south;
+    }
+
+    public Stone getNorth(){
+        return north;
     }
 
     public Stone getFromCoordinate(int x, int y){
