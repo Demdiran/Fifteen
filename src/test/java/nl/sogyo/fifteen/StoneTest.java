@@ -135,7 +135,7 @@ public class StoneTest{
 
     }
 
-//Column connection------------------------------
+//Column connection
 
     @Test
     public void TestStone11IsStone11(){
@@ -161,15 +161,80 @@ public class StoneTest{
         assert(s7 == s7_2);
     }
 
-//North connection-------------------------------
+//North neighbour connection------------------
 
     @Test
-    public void TestNorthNeighbour(){
-        Stone s1 = new Stone();
-        Stone s6 = s1.getFromCoordinate(1, 1);
-        Stone s2 = s6.getNorth();
-        assert(s2.getValue() == 2);
+    public void TestNorthNeighbour1(){
+        Stone stone1 = new Stone();
+        Stone stone5 = stone1.getSouth();
+        Stone stone1_2 = stone5.getNorth();
+        assert(stone1 == stone1_2);
     }
 
-//West connection-------------------------------------
+    @Test
+    public void TestNorthNeighbour2(){
+        Stone stone1 = new Stone();
+        Stone stone5 = stone1.getSouth();
+        Stone stone9 = stone1.getStepsSouth(2);
+        Stone stone5_2 = stone9.getNorth();
+        assert(stone5 == stone5_2);
+    }
+
+    @Test
+    public void TestNorthNeighbour3(){
+        Stone stone1 = new Stone();
+        Stone stone6 = stone1.getFromCoordinate(1, 1);
+        Stone stone2 = stone1.getEast();
+        Stone stone2_2 = stone6.getNorth();
+        assert(stone2 == stone2_2);
+    }
+
+//West neighbour connection
+
+    @Test
+    public void TestWestNeighbour1(){
+        Stone stone1 = new Stone();
+        Stone stone2 = stone1.getEast();
+        Stone stone1_2 = stone2.getWest();
+        assert(stone1 == stone1_2);
+    }
+
+    @Test
+    public void TestWestNeighbour2(){
+        Stone stone1 = new Stone();
+        Stone stone2 = stone1.getEast();
+        Stone stone3 = stone2.getEast();
+        Stone stone2_2 = stone3.getWest();
+        assert(stone2 == stone2_2);
+    }
+
+    @Test
+    public void TestWestNeighbour3(){
+        Stone stone1 = new Stone();
+        Stone stone6 = stone1.getFromCoordinate(1, 1);
+        Stone stone5 = stone1.getSouth();
+        Stone stone5_2 = stone6.getWest();
+        assert(stone5 == stone5_2);
+    }
+
+//Mixed neighbour tests
+
+    @Test
+    public void TestNeighbourMixed1(){
+        Stone stone1 = new Stone();
+        Stone stone15 = stone1.getFromCoordinate(2, 3);
+        Stone stone12 = stone1.getFromCoordinate(3, 2);
+        Stone stone16_1 = stone15.getEast();
+        Stone stone16_2 = stone12.getSouth();
+        assert(stone16_1 == stone16_2);
+    }
+    @Test
+    public void TestNeighbourMixed2(){
+        Stone stone1 = new Stone();
+        Stone stone15 = stone1.getFromCoordinate(2, 3);
+        Stone stone12 = stone1.getFromCoordinate(3, 2);
+        Stone stone11_1 = stone15.getNorth();
+        Stone stone11_2 = stone12.getWest();
+        assert(stone11_1 == stone11_2);
+    }
 }
