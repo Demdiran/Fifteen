@@ -298,7 +298,20 @@ public class Stone{
         ArrayList<Integer> moves = new ArrayList<Integer>();
         for(int i = 0; i < difficulty; i++){
             moves.add((4*y + x + 1));
-            int move = random.nextInt(4);
+            ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+            if(x != 0){
+                possibleMoves.add(1);
+            }
+            if(x != 3){
+                possibleMoves.add(0);
+            }
+            if(y != 0){
+                possibleMoves.add(3);
+            }
+            if(y != 3){
+                possibleMoves.add(2);
+            }
+            int move = possibleMoves.get(random.nextInt(possibleMoves.size()));
             switch(move){
                 case 0:
                     x++;
@@ -312,18 +325,6 @@ public class Stone{
                 case 3:
                     y--;
                     break;
-            }
-            if(x == 4){
-                x = 2;
-            }
-            else if(x == -1){
-                x = 1;
-            }
-            else if(y == 4){
-                y = 2;
-            }
-            else if(y == -1){
-                y = 1;
             }
             doMove(x, y);
         }
