@@ -61,6 +61,37 @@ public class Stone{
         return this.west;
     }
 
+    public String printBoard(){
+        String line = "|-----------|\n\r";
+        String row1 = this.getFromCoordinate(0, 0).rowToString();
+        String row2 = this.getFromCoordinate(0, 1).rowToString();
+        String row3 = this.getFromCoordinate(0, 2).rowToString();
+        String row4 = this.getFromCoordinate(0, 3).rowToString();
+        String boardString = line + row1 + line + row2 + line + row3 + line + row4 + "|-----------|";
+        return boardString;
+    }
+
+    private String rowToString(){
+        String part1 = "|" + this.getStringForBoard();
+        String part2 = this.getStepsEast(1).getStringForBoard();
+        String part3 = this.getStepsEast(2).getStringForBoard();
+        String part4 = this.getStepsEast(3).getStringForBoard();
+        String result = part1 + part2 + part3 + part4 + "\n\r";
+        return result;
+    }
+
+    private String getStringForBoard(){
+        if(this.value < 10){
+            return " " + this.value + "|";
+        }
+        else if(this.value == 16){
+            return "  " + "|";
+        }
+        else{
+            return "" + this.value + "|";
+        }
+    }
+
     public Stone getFromCoordinate(int x, int y){
         int xCoordinate = this.getXCoordinate(0);
         int yCoordinate = this.getYCoordinate(0);

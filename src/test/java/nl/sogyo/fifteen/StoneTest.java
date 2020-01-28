@@ -335,4 +335,24 @@ public class StoneTest{
         Stone stone16 = stone1.getFromCoordinate(0, 0);
         assertEquals(16, stone16.getValue());
     }
+
+//Printing the board-----------------------
+
+    @Test
+    public void TestBoardPrint1(){
+        Stone stone1 = new Stone();
+        String boardString = stone1.printBoard();
+        String boardStringExpected = "|-----------|\n\r| 1| 2| 3| 4|\n\r|-----------|\n\r| 5| 6| 7| 8|\n\r|-----------|\n\r| 9|10|11|12|\n\r|-----------|\n\r|13|14|15|  |\n\r|-----------|";
+        assertEquals(boardStringExpected, boardString);
+    }
+
+    @Test
+    public void TestBoardPrintAfterMove1(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        stone1.doMove(2, 2);
+        String boardString = stone1.printBoard();
+        String boardStringExpected = "|-----------|\n\r| 1| 2| 3| 4|\n\r|-----------|\n\r| 5| 6| 7| 8|\n\r|-----------|\n\r| 9|10|  |11|\n\r|-----------|\n\r|13|14|15|12|\n\r|-----------|";
+        assertEquals(boardStringExpected, boardString);
+    }
 }
