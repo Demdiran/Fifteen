@@ -383,4 +383,30 @@ public class StoneTest{
         boolean solved = stone1.isSolved();
         assert(!solved);
     }
+
+//Test creating new random solvable puzzle----------------
+
+    @Test
+    public void TestTrySolution1(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        boolean isSolution = stone1.trySolution(new int[] {16});
+        assert(isSolution);
+    }
+    @Test
+    public void TestTrySolution2(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        boolean isSolution = stone1.trySolution(new int[] {11});
+        assert(!isSolution);
+    }
+/*
+    @Test
+    public void TestGivenSolutionValid(){
+        Stone stone1 = new Stone();
+        int[] solution = stone1.generateNewPuzzle();
+        boolean isSolution = stone1.trySolution(solution);
+        assert(isSolution);
+    }
+*/
 }

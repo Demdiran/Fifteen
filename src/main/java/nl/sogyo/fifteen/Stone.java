@@ -289,4 +289,17 @@ public class Stone{
         }
     }
 
+    public int[] generateNewPuzzle(){
+        return new int[] {};
+    }
+
+    public boolean trySolution(int[] solution){
+        for(int i = solution.length; i > 0; i--){
+            int xCoord = (solution[i-1] - 1) % 4;
+            int yCoord = (solution[i-1] - 1) / 4;
+            this.doMove(xCoord, yCoord);
+        }
+        return isSolved();
+    }
+
 }
