@@ -1,5 +1,6 @@
 package nl.sogyo.fifteen;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,13 @@ public class StoneTest{
         Stone s = new Stone();
         int v = s.getValue();
         assert(v == 1);
+    }
+
+    @Test
+    public void TestGetFromCoordinate1(){
+        Stone stone1 = new Stone();
+        Stone stone10 = stone1.getFromCoordinate(1, 2);
+        assertEquals(10, stone10.getValue());
     }
 
 //East neighbour generation------------------------------------------------------
@@ -245,7 +253,7 @@ public class StoneTest{
         Stone stone1 = new Stone();
         stone1.doMove(2,3);
         Stone bottomRight = stone1.getFromCoordinate(3, 3);
-        assert(bottomRight.getValue() == 15);       
+        assertEquals(15, bottomRight.getValue());       
     }
     
     @Test

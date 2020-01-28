@@ -2,7 +2,7 @@ package nl.sogyo.fifteen;
 
 
 public class Stone{
-    private int value;
+    private final int value;
     private Stone north;
     private Stone east;
     private Stone south;
@@ -114,23 +114,73 @@ public class Stone{
     }
 
     private void move(){
+        Stone tNorth = this.north;
+        Stone tEast = this.east;
+        Stone tSouth = this.south;
+        Stone tWest = this.west;
+        Stone emptyStone;
         if(this.north != null && this.north.getValue() == 16){
-            this.north.value = this.value;
-            this.value = 16;
-        }else if(this.west != null && this.west.getValue() == 16){
-            this.west.value = this.value;
-            this.value = 16;
-        }else if(this.south != null && this.south.getValue() == 16){
-            this.south.value = this.value;
-            this.value = 16;
+            emptyStone = this.north;
+            giveNeighboursNewNeighbour(emptyStone);
+            this.north = emptyStone.getNorth();
+            this.east = emptyStone.getEast();
+            this.south = emptyStone;
+            this.west = emptyStone.getWest();
+            giveNeighboursNewNeighbour(this);
+            emptyStone.move(this, tEast, tSouth, tWest);
         }else if(this.east != null && this.east.getValue() == 16){
-            this.east.value = this.value;
-            this.value = 16;
-        }
-        else{
+            emptyStone = this.east;
+            giveNeighboursNewNeighbour(emptyStone);
+            this.north = emptyStone.getNorth();
+            this.east = emptyStone.getEast();
+            this.south = emptyStone.getSouth();
+            this.west = emptyStone;
+            giveNeighboursNewNeighbour(this);
+            emptyStone.move(tNorth, this, tSouth, tWest);
+        }else if(this.south != null && this.south.getValue() == 16){
+            emptyStone = this.south;
+            giveNeighboursNewNeighbour(emptyStone);
+            this.north = emptyStone;
+            this.east = emptyStone.getEast();
+            this.south = emptyStone.getSouth();
+            this.west = emptyStone.getWest();
+            giveNeighboursNewNeighbour(this);
+            emptyStone.move(tNorth, tEast, this, tWest);
+        }else if(this.west != null && this.west.getValue() == 16){
+            emptyStone = this.west;
+            giveNeighboursNewNeighbour(emptyStone);
+            this.north = emptyStone.getNorth();
+            this.east = emptyStone;
+            this.south = emptyStone.getSouth();
+            this.west = emptyStone.getWest();
+            giveNeighboursNewNeighbour(this);
+            emptyStone.move(tNorth, tEast, tSouth, this);
+        }else {
             throw new RuntimeException();
         }
 
+    }
+
+    private void move(Stone north, Stone east, Stone south, Stone west){
+        this.north = north;
+        this.east = east;
+        this.south = south;
+        this.west = west;
+    }
+
+    private void giveNeighboursNewNeighbour(Stone newNeighbour){
+        if(this.north != null){
+            this.north.south = newNeighbour;
+        }
+        if(this.east != null){
+            this.east.west = newNeighbour;
+        }
+        if(this.south != null){
+            this.south.north = newNeighbour;
+        }
+        if(this.west != null){
+            this.west.east = newNeighbour;
+        }
     }
 
 }
