@@ -150,6 +150,23 @@ public class Stone{
         }
     }
 
+    public boolean isSolved(){
+        for(int x = 0; x < 4; x++){
+            for (int y = 0; y < 4; y++){
+                if(!this.getFromCoordinate(x, y).isRightPlace()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isRightPlace(){
+        int xCoordinate = this.getXCoordinate(0);
+        int yCoordinate = this.getYCoordinate(0);
+        return this.value == (yCoordinate*4 + xCoordinate + 1);
+    }
+
     public void doMove(int x, int y){
         getFromCoordinate(x, y).move();
     }

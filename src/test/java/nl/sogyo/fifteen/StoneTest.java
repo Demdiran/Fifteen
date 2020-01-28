@@ -355,4 +355,32 @@ public class StoneTest{
         String boardStringExpected = "|-----------|\n\r| 1| 2| 3| 4|\n\r|-----------|\n\r| 5| 6| 7| 8|\n\r|-----------|\n\r| 9|10|  |11|\n\r|-----------|\n\r|13|14|15|12|\n\r|-----------|";
         assertEquals(boardStringExpected, boardString);
     }
+
+//Testing if puzzle is solved------------------------------
+
+    @Test
+    public void TestPuzzleSolvedTrue(){
+        Stone stone1 = new Stone();
+        boolean solved = stone1.isSolved();
+        assert(solved);
+    }
+
+    @Test
+    public void TestPuzzleSolvedFalse1(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        boolean solved = stone1.isSolved();
+        assert(!solved);
+    }
+
+    @Test
+    public void TestPuzzleSolvedFalse2(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        stone1.doMove(2, 2);
+        stone1.doMove(2, 3);
+        stone1.doMove(3, 3);
+        boolean solved = stone1.isSolved();
+        assert(!solved);
+    }
 }
