@@ -1,6 +1,8 @@
 package nl.sogyo.fifteen;
 
-
+import java.util.ArrayList;
+import java.util.Random;
+import org.apache.commons.lang3.ArrayUtils;
 public class Stone{
     private final int value;
     private Stone north;
@@ -289,8 +291,43 @@ public class Stone{
         }
     }
 
-    public int[] generateNewPuzzle(){
-        return new int[] {};
+    public int[] generateNewPuzzle(int difficulty){
+        int x = 3;
+        int y = 3;
+        Random random = new Random();
+        ArrayList<Integer> moves = new ArrayList<Integer>();
+        for(int i = 0; i < difficulty; i++){
+            moves.add((4*y + x + 1));
+            int move = random.nextInt(4);
+            switch(move){
+                case 0:
+                    x++;
+                    break;
+                case 1:
+                    x--;
+                    break;
+                case 2:
+                    y++;
+                    break;
+                case 3:
+                    y--;
+                    break;
+            }
+            if(x == 4){
+                x = 2;
+            }
+            else if(x == -1){
+                x = 1;
+            }
+            else if(y == 4){
+                y = 2;
+            }
+            else if(y == -1){
+                y = 1;
+            }
+            doMove(x, y);
+        }
+        return ArrayUtils.toPrimitive(moves.toArray(new Integer[moves.size()]));
     }
 
     public boolean trySolution(int[] solution){

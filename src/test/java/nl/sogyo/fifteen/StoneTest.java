@@ -3,6 +3,8 @@ package nl.sogyo.fifteen;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 public class StoneTest{
@@ -400,13 +402,17 @@ public class StoneTest{
         boolean isSolution = stone1.trySolution(new int[] {11});
         assert(!isSolution);
     }
-/*
+
     @Test
     public void TestGivenSolutionValid(){
         Stone stone1 = new Stone();
-        int[] solution = stone1.generateNewPuzzle();
+        int[] solution = stone1.generateNewPuzzle(50);
+        System.out.println(stone1.printBoard());
+        System.out.println(Arrays.toString(solution));
+        boolean puzzleNotSolved = !stone1.isSolved();
         boolean isSolution = stone1.trySolution(solution);
+        assert(puzzleNotSolved);
         assert(isSolution);
     }
-*/
+
 }
