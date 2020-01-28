@@ -61,6 +61,44 @@ public class Stone{
         return this.west;
     }
 
+    public Stone getFromCoordinate(int x, int y){
+        int xCoordinate = this.getXCoordinate(0);
+        int yCoordinate = this.getYCoordinate(0);
+        int relativeXCoord = x - xCoordinate;
+        int relativeYCoord = y - yCoordinate;
+        Stone result;
+        if(relativeXCoord < 0){
+            result = this.getStepsWest(-relativeXCoord);
+        }
+        else{
+            result = this.getStepsEast(relativeXCoord);
+        }
+        if(relativeYCoord < 0){
+            return result.getStepsNorth(-relativeYCoord);
+        }
+        else{
+            return result.getStepsSouth(relativeYCoord);
+        }
+    }
+
+    public int getXCoordinate(int stepsWestTaken){
+        if(this.west == null){
+            return stepsWestTaken;
+        }
+        else{
+            return this.west.getXCoordinate(stepsWestTaken + 1);
+        }
+    }
+
+    public int getYCoordinate(int stepsNorthTaken){
+        if(this.north == null){
+            return stepsNorthTaken;
+        }
+        else{
+            return this.north.getYCoordinate(stepsNorthTaken + 1);
+        }
+    }
+
     private void setWest(Stone west){
         this.west = west;
         if(this.east != null){
@@ -85,8 +123,16 @@ public class Stone{
         getFromCoordinate(x, y).move();
     }
 
-    public Stone getFromCoordinate(int x, int y){
-        return getStepsEast(x).getStepsSouth(y);
+    public Stone getStepsNorth(int steps){
+        if(steps == 0){
+            return this;
+        }
+        else if(this.north != null){
+            return this.north.getStepsNorth(steps - 1);
+        }
+        else{
+            throw new OutOfBoardException("Tried to access a stone too much to the north.");
+        }
     }
 
     public Stone getStepsEast(int steps){
@@ -97,7 +143,7 @@ public class Stone{
             return this.east.getStepsEast(steps - 1);
         }
         else{
-            throw new OutOfBoardException("Tried to acces stone too much to the east.");
+            throw new OutOfBoardException("Tried to access stone too much to the east.");
         }
     }
 
@@ -109,7 +155,19 @@ public class Stone{
             return this.south.getStepsSouth(steps - 1);
         }
         else{
-            throw new OutOfBoardException("Tried to acces stone too much to the south.");
+            throw new OutOfBoardException("Tried to access stone too much to the south.");
+        }
+    }
+
+    public Stone getStepsWest(int steps){
+        if(steps == 0){
+            return this;
+        }
+        else if(this.west != null){
+            return this.west.getStepsWest(steps - 1);
+        }
+        else{
+            throw new OutOfBoardException("Tried to access stone too much to the west.");
         }
     }
 

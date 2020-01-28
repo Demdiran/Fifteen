@@ -281,4 +281,58 @@ public class StoneTest{
         Stone stone3_2 = stone1.getFromCoordinate(3, 2);
         assert(stone3_2.getValue() == 12);
     }
+
+//Origin has moved-------------------------------------------
+
+    @Test
+    public void TestOriginHasMovedEast(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        stone1.doMove(3, 1);
+        stone1.doMove(3, 0);
+        stone1.doMove(2, 0);
+        stone1.doMove(1, 0);
+        stone1.doMove(0, 0);
+        Stone stone6 = stone1.getFromCoordinate(1, 1);
+        assertEquals(6, stone6.getValue());
+    }
+
+    @Test
+    public void TestOriginHasMovedSouth(){
+        Stone stone1 = new Stone();
+        stone1.doMove(2, 3);
+        stone1.doMove(1, 3);
+        stone1.doMove(0, 3);
+        stone1.doMove(0, 2);
+        stone1.doMove(0, 1);
+        stone1.doMove(0, 0);
+        Stone stone6 = stone1.getFromCoordinate(1, 1);
+        assertEquals(6, stone6.getValue());
+    }
+
+    @Test
+    public void TestGetNorthOfOrigin(){
+        Stone stone1 = new Stone();
+        stone1.doMove(2, 3);
+        stone1.doMove(1, 3);
+        stone1.doMove(0, 3);
+        stone1.doMove(0, 2);
+        stone1.doMove(0, 1);
+        stone1.doMove(0, 0);
+        Stone stone16 = stone1.getFromCoordinate(0, 0);
+        assertEquals(16, stone16.getValue());
+    }
+
+    @Test
+    public void TestGetWestOfOrigin(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        stone1.doMove(3, 1);
+        stone1.doMove(3, 0);
+        stone1.doMove(2, 0);
+        stone1.doMove(1, 0);
+        stone1.doMove(0, 0);
+        Stone stone16 = stone1.getFromCoordinate(0, 0);
+        assertEquals(16, stone16.getValue());
+    }
 }
