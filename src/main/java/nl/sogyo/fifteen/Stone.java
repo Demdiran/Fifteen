@@ -12,7 +12,6 @@ public class Stone{
     public static void main(String[] args){
     }
     public Stone(){
-        //System.out.println("Created stone with value: " + 1);
         this.value = 1;
         this.east = new Stone(2);
         this.south = new Stone(5, this.east.south);
@@ -20,7 +19,6 @@ public class Stone{
         this.east.setWest(this);
     }
     public Stone(int v){
-        //System.out.println("Created stone with value: " + v);
         this.value = v;
         if(v % 4 != 0){
             this.east = new Stone(v + 1);
@@ -35,7 +33,6 @@ public class Stone{
         }
     }
     public Stone(int v, Stone eastNeighbour){
-        //System.out.println("Created stone with value: " + v);
         this.value = v;
         this.east = eastNeighbour;
         if(v / 4 < 3){

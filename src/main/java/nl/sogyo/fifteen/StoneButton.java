@@ -24,11 +24,11 @@ class StoneButton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         moveStone();
         Container frame = this.getTopLevelAncestor();
-        if(frame instanceof UserInterface){
-            ((UserInterface) frame).updateFrame();
-        }
         if(this.stone.isSolved()){
-            frame.dispatchEvent(new WindowEvent((JFrame) frame, WindowEvent.WINDOW_CLOSING));
+            ((UserInterface) frame).hasWon();
+        }
+        else if(frame instanceof UserInterface){
+            ((UserInterface) frame).updateFrame();
         }
     }
 }
