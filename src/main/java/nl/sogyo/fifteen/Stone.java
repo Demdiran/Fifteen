@@ -264,7 +264,7 @@ public class Stone{
             giveNeighboursNewNeighbour(this);
             emptyStone.move(tNorth, tEast, tSouth, this);
         }else {
-            throw new RuntimeException();
+            throw new RuntimeException("Invalid move attempted!");
         }
 
     }
