@@ -2,7 +2,6 @@ package nl.sogyo.fifteen;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Container;
 
 class StoneButton extends JButton implements ActionListener{
     private Stone stone;

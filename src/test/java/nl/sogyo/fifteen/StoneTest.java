@@ -74,7 +74,7 @@ public class StoneTest{
     public void TestGetXStepsEastOutOfBounds(){
         try {
             Stone s1 = new Stone();
-            Stone se = s1.getStepsEast(4);
+            s1.getStepsEast(4);
             fail("Went out of bounds, but did not trigger exception.");
             
         } catch (OutOfBoardException e) {
@@ -135,7 +135,7 @@ public class StoneTest{
     public void TestGetXStepsSouthOutOfBounds(){
         try {
             Stone s1 = new Stone();
-            Stone ss = s1.getStepsSouth(4);
+            s1.getStepsSouth(4);
             fail("Went out of bounds, but did not trigger exception.");
             
         } catch (OutOfBoardException e) {
