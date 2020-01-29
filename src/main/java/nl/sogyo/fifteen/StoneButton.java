@@ -15,7 +15,9 @@ class StoneButton extends JButton implements ActionListener{
     void moveStone(){
         int xCoord = this.getX() / 100;
         int yCoord = this.getY() / 100;
-        this.stone.doMove(xCoord, yCoord);
+        if(this.stone.getFromCoordinate(xCoord, yCoord).canMove()){
+            this.stone.doMove(xCoord, yCoord);
+        };
     }
 
     @Override

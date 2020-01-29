@@ -221,7 +221,14 @@ public class Stone{
         }
     }
 
+    public boolean canMove(){
+        return ((this.north != null && this.north.value == 16) || (this.east != null && this.east.value == 16) || (this.south != null && this.south.value == 16) || (this.west != null && this.west.value == 16));
+    }
+
     private void move(){
+        if(!this.canMove()){
+            throw new RuntimeException("Invalid move attempted!");
+        }
         Stone tNorth = this.north;
         Stone tEast = this.east;
         Stone tSouth = this.south;
@@ -263,8 +270,6 @@ public class Stone{
             this.west = emptyStone.getWest();
             giveNeighboursNewNeighbour(this);
             emptyStone.move(tNorth, tEast, tSouth, this);
-        }else {
-            throw new RuntimeException("Invalid move attempted!");
         }
 
     }
