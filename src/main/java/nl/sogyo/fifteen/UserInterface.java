@@ -8,7 +8,7 @@ public class UserInterface extends JFrame{
     Stone stone = new Stone();
     public static void main(String[] args) {
         UserInterface ui = new UserInterface("Fifteen");
-        ui.stone.generateNewPuzzle(10);
+        ui.stone.generateNewPuzzle(50);
         ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ui.updateFrame();
         ui.setLocationRelativeTo(null);
@@ -60,14 +60,25 @@ public class UserInterface extends JFrame{
         JPanel newContentPane = new JPanel(new BorderLayout());
         newContentPane.add(BorderLayout.CENTER, board);
         
-        JPanel panel = new JPanel(new BorderLayout());
-        JButton newPuzzle = new JButton("New puzzle");
+        JPanel menu = new JPanel();
+
+        NewPuzzleButton newPuzzleEasy = new NewPuzzleButton("Easy", 25);
+        newPuzzleEasy.addActionListener(newPuzzleEasy);
+
+        NewPuzzleButton newPuzzleMedium = new NewPuzzleButton("Medium", 50);
+        newPuzzleMedium.addActionListener(newPuzzleMedium);
+
+        NewPuzzleButton newPuzzleHard = new NewPuzzleButton("Hard", 75);
+        newPuzzleHard.addActionListener(newPuzzleHard);
+
         JButton solve = new JButton("Solve");
-        panel.add(BorderLayout.WEST, newPuzzle);
-        panel.add(BorderLayout.EAST, solve);
+        menu.add(newPuzzleEasy);
+        menu.add(newPuzzleMedium);
+        menu.add(newPuzzleHard);
+        menu.add(solve);
         
         newContentPane.add(BorderLayout.CENTER, board);
-        newContentPane.add(BorderLayout.NORTH, panel);
+        newContentPane.add(BorderLayout.NORTH, menu);
         this.setContentPane(newContentPane);
         this.pack();
     }
@@ -80,5 +91,10 @@ public class UserInterface extends JFrame{
         createFrame(getBoard(Color.green));
     }
     
+    void newPuzzle(int difficulty){
+        this.stone = new Stone();
+        stone.generateNewPuzzle(difficulty);
+        updateFrame();
+    }
 
 }

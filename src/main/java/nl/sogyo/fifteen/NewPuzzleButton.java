@@ -1,0 +1,21 @@
+package nl.sogyo.fifteen;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.Container;
+
+class NewPuzzleButton extends JButton implements ActionListener{
+    int difficulty;
+
+    NewPuzzleButton(String name, int difficulty){
+        super(name);
+        this.difficulty = difficulty;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        UserInterface frame = (UserInterface) this.getTopLevelAncestor();
+        frame.newPuzzle(difficulty);
+    }
+    
+}
