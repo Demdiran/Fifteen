@@ -58,16 +58,25 @@ public class Stone{
         return this.west;
     }
 
+    public int getCoordAsInt(){
+        return 4 * this.getYCoordinate() + this.getXCoordinate() + 1;
+    }
+
     public int calculateHeuristic(){
         return this.getFromCoordinate(0, 0).heuristicFromScratch();
+    }
+
+    public int calculateIndividualHeuristic(){
+        int xDestination = (this.value - 1) % 4;
+        int yDestination = (this.value - 1) / 4;
+        int ownEstimate = Math.abs(this.getXCoordinate() - xDestination) + Math.abs(this.getYCoordinate() - yDestination);
+        return ownEstimate;
     }
 
     private int heuristicFromScratch(){
         int ownEstimate = 0;
         if(this.value != 16){
-            int xDestination = (this.value - 1) % 4;
-            int yDestination = (this.value - 1) / 4;
-            ownEstimate = Math.abs(this.getXCoordinate() - xDestination) + Math.abs(this.getYCoordinate() - yDestination);
+            ownEstimate = this.calculateIndividualHeuristic();
         }
         if(this.east != null){
             return ownEstimate + this.east.heuristicFromScratch();
@@ -206,6 +215,12 @@ public class Stone{
         getFromCoordinate(x, y).move();
     }
 
+    public void doMove(int location){
+        int xCoord = (location - 1) % 4;
+        int yCoord = (location - 1) / 4;
+        doMove(xCoord, yCoord);
+    }
+
     public Stone getStepsNorth(int steps){
         if(steps == 0){
             return this;
@@ -260,7 +275,7 @@ public class Stone{
 
     private void move(){
         if(!this.canMove()){
-            throw new RuntimeException("Invalid move attempted!");
+            throw new RuntimeException("Invalid move attempted!" + this.getCoordAsInt());
         }
         Stone tNorth = this.north;
         Stone tEast = this.east;
@@ -366,13 +381,15 @@ public class Stone{
             }
             doMove(x, y);
         }
-        return ArrayUtils.toPrimitive(moves.toArray(new Integer[moves.size()]));
+        int[] result = ArrayUtils.toPrimitive(moves.toArray(new Integer[moves.size()]));
+        ArrayUtils.reverse(result);
+        return result;
     }
 
     public boolean trySolution(int[] solution){
-        for(int i = solution.length; i > 0; i--){
-            int xCoord = (solution[i-1] - 1) % 4;
-            int yCoord = (solution[i-1] - 1) / 4;
+        for(int i = 0; i < solution.length; i++){
+            int xCoord = (solution[i] - 1) % 4;
+            int yCoord = (solution[i] - 1) / 4;
             this.doMove(xCoord, yCoord);
         }
         return isSolved();

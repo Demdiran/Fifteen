@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.*;
 public class UserInterface extends JFrame{
     Stone stone = new Stone();
     public static void main(String[] args) {
@@ -14,6 +15,13 @@ public class UserInterface extends JFrame{
         ui.setLocationRelativeTo(null);
         ui.setVisible(true);   
     }
+
+    /*public static void main(String[] args){
+        Stone stone = new Stone();
+        stone.doMove(3, 2);
+        int[] solution = FifteenSolver.solveFifteenPuzzle(stone);
+        System.out.println(Arrays.toString(solution));
+    }*/
 
     public UserInterface(String title){
         super(title);

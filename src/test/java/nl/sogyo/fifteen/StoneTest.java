@@ -407,8 +407,6 @@ public class StoneTest{
     public void TestGivenSolutionValid(){
         Stone stone1 = new Stone();
         int[] solution = stone1.generateNewPuzzle(50);
-        System.out.println(stone1.printBoard());
-        System.out.println(Arrays.toString(solution));
         boolean puzzleNotSolved = !stone1.isSolved();
         boolean isSolution = stone1.trySolution(solution);
         assert(puzzleNotSolved);
