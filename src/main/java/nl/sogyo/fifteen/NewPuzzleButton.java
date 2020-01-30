@@ -9,6 +9,7 @@ class NewPuzzleButton extends JButton implements ActionListener{
     NewPuzzleButton(String name, int difficulty){
         super(name);
         this.difficulty = difficulty;
+        this.addActionListener(this);
     }
 
     @Override

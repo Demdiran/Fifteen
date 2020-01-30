@@ -9,6 +9,7 @@ class StoneButton extends JButton implements ActionListener{
     StoneButton(Stone stone, String text){
         super(text);
         this.stone = stone;
+        this.addActionListener(this);
     }
 
     void moveStone(){

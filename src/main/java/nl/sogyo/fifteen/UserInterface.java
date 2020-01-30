@@ -1,43 +1,40 @@
 package nl.sogyo.fifteen;
 
 import javax.swing.*;
+import javax.swing.Timer;
+
+import java.awt.event.*;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.*;
-public class UserInterface extends JFrame{
-    Stone stone = new Stone();
+
+public class UserInterface extends JFrame {
+    Stone board = new Stone();
+
     public static void main(String[] args) {
         UserInterface ui = new UserInterface("Fifteen");
-        ui.stone.generateNewPuzzle(50);
+        ui.board.generateNewPuzzle(50);
         ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ui.updateFrame();
         ui.setLocationRelativeTo(null);
-        ui.setVisible(true);   
+        ui.setVisible(true);
     }
 
-    /*public static void main(String[] args){
-        Stone stone = new Stone();
-        stone.doMove(3, 2);
-        int[] solution = FifteenSolver.solveFifteenPuzzle(stone);
-        System.out.println(Arrays.toString(solution));
-    }*/
-
-    public UserInterface(String title){
+    public UserInterface(String title) {
         super(title);
     }
 
-    private JPanel getBoard(){
+    private JPanel getBoard() {
         JPanel contentPane = new JPanel();
         contentPane.setLayout(null);
-        for(int i = 0; i < 16; i++){
+        for (int i = 0; i < 16; i++) {
             int xCoord = i % 4;
             int yCoord = i / 4;
-            Stone tempStone = this.stone.getFromCoordinate(xCoord, yCoord);
-            if(tempStone.getValue() != 16){
-                StoneButton tempButton = new StoneButton(this.stone, "" + tempStone.getValue());
+            Stone tempStone = this.board.getFromCoordinate(xCoord, yCoord);
+            if (tempStone.getValue() != 16) {
+                StoneButton tempButton = new StoneButton(this.board, "" + tempStone.getValue());
                 tempButton.setBounds(xCoord * 100, yCoord * 100, 100, 100);
-                tempButton.addActionListener(tempButton);
                 contentPane.add(tempButton);
             }
         }
@@ -45,17 +42,16 @@ public class UserInterface extends JFrame{
         return contentPane;
     }
 
-    private JPanel getBoard(Color backgroundColor){
+    private JPanel getBoard(Color backgroundColor) {
         JPanel contentPane = new JPanel();
         contentPane.setLayout(null);
-        for(int i = 0; i < 16; i++){
+        for (int i = 0; i < 16; i++) {
             int xCoord = i % 4;
             int yCoord = i / 4;
-            Stone tempStone = this.stone.getFromCoordinate(xCoord, yCoord);
-            if(tempStone.getValue() != 16){
-                StoneButton tempButton = new StoneButton(this.stone, "" + tempStone.getValue());
+            Stone tempStone = this.board.getFromCoordinate(xCoord, yCoord);
+            if (tempStone.getValue() != 16) {
+                StoneButton tempButton = new StoneButton(this.board, "" + tempStone.getValue());
                 tempButton.setBounds(xCoord * 100, yCoord * 100, 100, 100);
-                tempButton.addActionListener(tempButton);
                 tempButton.setBackground(backgroundColor);
                 contentPane.add(tempButton);
             }
@@ -64,45 +60,56 @@ public class UserInterface extends JFrame{
         return contentPane;
     }
 
-    void createFrame(JPanel board){
+    void createFrame(JPanel board) {
         JPanel newContentPane = new JPanel(new BorderLayout());
         newContentPane.add(BorderLayout.CENTER, board);
-        
+
         JPanel menu = new JPanel();
 
         NewPuzzleButton newPuzzleEasy = new NewPuzzleButton("Easy", 25);
-        newPuzzleEasy.addActionListener(newPuzzleEasy);
-
         NewPuzzleButton newPuzzleMedium = new NewPuzzleButton("Medium", 50);
-        newPuzzleMedium.addActionListener(newPuzzleMedium);
-
         NewPuzzleButton newPuzzleHard = new NewPuzzleButton("Hard", 75);
-        newPuzzleHard.addActionListener(newPuzzleHard);
 
-        JButton solve = new JButton("Solve");
+        SolveButton solve = new SolveButton("Solve");
         menu.add(newPuzzleEasy);
         menu.add(newPuzzleMedium);
         menu.add(newPuzzleHard);
         menu.add(solve);
-        
+
         newContentPane.add(BorderLayout.CENTER, board);
         newContentPane.add(BorderLayout.NORTH, menu);
         this.setContentPane(newContentPane);
         this.pack();
     }
 
-    void updateFrame(){
-        createFrame(getBoard());
+    void updateFrame() {
+        this.createFrame(getBoard());
     }
 
-    void hasWon(){
-        createFrame(getBoard(Color.green));
+    void hasWon() {
+        this.createFrame(getBoard(Color.green));
     }
-    
-    void newPuzzle(int difficulty){
-        this.stone = new Stone();
-        stone.generateNewPuzzle(difficulty);
-        updateFrame();
+
+    void newPuzzle(int difficulty) {
+        this.board = new Stone();
+        board.generateNewPuzzle(difficulty);
+        this.updateFrame();
+    }
+
+    void solvePuzzle() {
+        ArrayList<Integer> solution = (ArrayList<Integer>) FifteenSolver.solveFifteenPuzzle(board).clone();
+        int interval = 500;
+        Timer timer = new Timer(interval, new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                board.doMove(solution.get(0));
+                solution.remove(0);
+                updateFrame();
+                if(solution.isEmpty()){
+                    ((Timer)e.getSource()).stop();
+                }
+            }
+        });
+        timer.start();
     }
 
 }

@@ -10,7 +10,7 @@ class FifteenSolver{
     private Stone board;
     private Stone emptyStone;
 
-    public static int[] solveFifteenPuzzle(Stone board){
+    public static ArrayList<Integer> solveFifteenPuzzle(Stone board){
         FifteenSolver origin = new FifteenSolver(board);
         boolean foundSolution = false;
         if(origin.heuristic == 0){
@@ -22,24 +22,24 @@ class FifteenSolver{
         }
         ArrayList<Integer> result = origin.getSolution();
         result.remove(0);
-        return ArrayUtils.toPrimitive(result.toArray(new Integer[0]));
+        return result;
     }
 
     private ArrayList<Integer> getSolution(){
-        if(this.heuristic == 0){
+        if(this.heuristic == -1){
             ArrayList<Integer> solution = new ArrayList<>();
             solution.add(this.move);
             return solution;
         }
         else{
             for(FifteenSolver s : this.children){
-                if(s.heuristic == this.heuristic - 1){
+                if(s.heuristic < 1){
                     ArrayList<Integer> solution = s.getSolution();
                     solution.add(0, this.move);
                     return solution;
                 }
             }
-            throw new RuntimeException("Heuristic updating probably went wrong.");
+            throw new RuntimeException("Heuristic updating probably went wrong." + this.children.size() + " " + this.heuristic);
         }
     }
 
@@ -48,7 +48,6 @@ class FifteenSolver{
         this.heuristic = board.calculateHeuristic();
         this.emptyStone = board.getEmptyStone();
         this.move = emptyStone.getCoordAsInt();
-        System.out.println("My heuristic is: " + this.heuristic + ", my move is: " + this.move);
     }
 
     private FifteenSolver(Stone board, Stone emptyStone, int heuristic, FifteenSolver parent, int move){
@@ -57,7 +56,6 @@ class FifteenSolver{
         this.heuristic = heuristic;
         this.parent = parent;
         this.move = move;
-        System.out.println("My heuristic is: " + this.heuristic + ", my move is: " + this.move);
     }
 
     private boolean solveStep(){
@@ -68,6 +66,7 @@ class FifteenSolver{
             if(this.parent != null){
                 this.board.doMove(this.parent.move);
             }
+            this.heuristic = -1;
             return true;
         }
         if(children == null){
@@ -138,6 +137,9 @@ class FifteenSolver{
             this.updateHeuristic();
             if(this.parent != null){
                 this.board.doMove(this.parent.move);
+            }
+            if(foundSolution){
+                this.heuristic = 0;
             }
             return foundSolution;
         }
