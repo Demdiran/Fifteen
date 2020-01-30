@@ -9,8 +9,6 @@ public class Stone{
     private Stone east;
     private Stone south;
     private Stone west;
-    public static void main(String[] args){
-    }
     public Stone(){
         this.value = 1;
         this.east = new Stone(2);
@@ -60,6 +58,44 @@ public class Stone{
         return this.west;
     }
 
+    public int calculateHeuristic(){
+        return this.getFromCoordinate(0, 0).heuristicFromScratch();
+    }
+
+    private int heuristicFromScratch(){
+        int ownEstimate = 0;
+        if(this.value != 16){
+            int xDestination = (this.value - 1) % 4;
+            int yDestination = (this.value - 1) / 4;
+            ownEstimate = Math.abs(this.getXCoordinate() - xDestination) + Math.abs(this.getYCoordinate() - yDestination);
+        }
+        if(this.east != null){
+            return ownEstimate + this.east.heuristicFromScratch();
+        }
+        else if(this.south != null){
+            return ownEstimate + this.getFromCoordinate(0, this.getYCoordinate() + 1).heuristicFromScratch();
+        }
+        else {
+            return ownEstimate;
+        }
+    }
+
+    public Stone getEmptyStone(){
+        return this.getFromCoordinate(0, 0).emptyStoneSearch();
+    }
+
+    private Stone emptyStoneSearch(){
+        if(this.value == 16){
+            return this;
+        }
+        else if(this.east != null){
+            return this.east.emptyStoneSearch();
+        }
+        else {
+            return this.getFromCoordinate(0, this.getYCoordinate() + 1).emptyStoneSearch();
+        }
+    }
+
     public String printBoard(){
         String line = "|-----------|\n\r";
         String row1 = this.getFromCoordinate(0, 0).rowToString();
@@ -92,8 +128,8 @@ public class Stone{
     }
 
     public Stone getFromCoordinate(int x, int y){
-        int xCoordinate = this.getXCoordinate(0);
-        int yCoordinate = this.getYCoordinate(0);
+        int xCoordinate = this.getXCoordinate();
+        int yCoordinate = this.getYCoordinate();
         int relativeXCoord = x - xCoordinate;
         int relativeYCoord = y - yCoordinate;
         Stone result;
@@ -111,21 +147,21 @@ public class Stone{
         }
     }
 
-    public int getXCoordinate(int stepsWestTaken){
+    public int getXCoordinate(){
         if(this.west == null){
-            return stepsWestTaken;
+            return 0;
         }
         else{
-            return this.west.getXCoordinate(stepsWestTaken + 1);
+            return this.west.getXCoordinate() + 1;
         }
     }
 
-    public int getYCoordinate(int stepsNorthTaken){
+    public int getYCoordinate(){
         if(this.north == null){
-            return stepsNorthTaken;
+            return 0;
         }
         else{
-            return this.north.getYCoordinate(stepsNorthTaken + 1);
+            return this.north.getYCoordinate() + 1;
         }
     }
 
@@ -161,8 +197,8 @@ public class Stone{
     }
 
     private boolean isRightPlace(){
-        int xCoordinate = this.getXCoordinate(0);
-        int yCoordinate = this.getYCoordinate(0);
+        int xCoordinate = this.getXCoordinate();
+        int yCoordinate = this.getYCoordinate();
         return this.value == (yCoordinate*4 + xCoordinate + 1);
     }
 

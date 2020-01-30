@@ -415,4 +415,36 @@ public class StoneTest{
         assert(isSolution);
     }
 
+//Heuristic and getEmptyStone tests------------------------------
+
+    @Test
+    public void TestGetEmptyStone1(){
+        Stone stone1 = new Stone();
+        Stone empty = stone1.getEmptyStone();
+        assertEquals(16, empty.getValue());
+    }
+
+    @Test
+    public void TestGetEmptyStone2(){
+        Stone stone1 = new Stone();
+        stone1.generateNewPuzzle(25);
+        Stone empty = stone1.getEmptyStone();
+        assertEquals(16, empty.getValue());
+    }
+
+    @Test
+    public void TestHeuristic1(){
+        Stone stone1 = new Stone();
+        int heuristic = stone1.calculateHeuristic();
+        assertEquals(0, heuristic);
+    }
+
+    @Test
+    public void TestHeuristic2(){
+        Stone stone1 = new Stone();
+        stone1.doMove(3, 2);
+        stone1.doMove(2, 2);
+        int heuristic = stone1.calculateHeuristic();
+        assertEquals(2, heuristic);
+    }
 }
