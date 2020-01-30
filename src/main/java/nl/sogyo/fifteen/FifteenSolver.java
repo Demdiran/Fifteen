@@ -1,7 +1,6 @@
 package nl.sogyo.fifteen;
 
 import java.util.*;
-import org.apache.commons.lang3.*;
 class FifteenSolver{
     private int heuristic;
     private int move;
@@ -18,7 +17,11 @@ class FifteenSolver{
         }
 
         while(!foundSolution){
-            foundSolution = origin.solveStep();
+            try {
+                foundSolution = origin.solveStep();                
+            } catch (InvalidMoveException e) {
+                e.printStackTrace();
+            }
         }
         ArrayList<Integer> result = origin.getSolution();
         result.remove(0);
@@ -58,7 +61,7 @@ class FifteenSolver{
         this.move = move;
     }
 
-    private boolean solveStep(){
+    private boolean solveStep()throws InvalidMoveException{
         if(this.parent != null){
             this.board.doMove(move);
         }

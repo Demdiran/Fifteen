@@ -1,7 +1,5 @@
 package nl.sogyo.fifteen;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.*;
 

@@ -211,11 +211,11 @@ public class Stone{
         return this.value == (yCoordinate*4 + xCoordinate + 1);
     }
 
-    public void doMove(int x, int y){
+    public void doMove(int x, int y)throws InvalidMoveException{
         getFromCoordinate(x, y).move();
     }
 
-    public void doMove(int location){
+    public void doMove(int location)throws InvalidMoveException{
         int xCoord = (location - 1) % 4;
         int yCoord = (location - 1) / 4;
         doMove(xCoord, yCoord);
@@ -273,9 +273,9 @@ public class Stone{
         return ((this.north != null && this.north.value == 16) || (this.east != null && this.east.value == 16) || (this.south != null && this.south.value == 16) || (this.west != null && this.west.value == 16));
     }
 
-    private void move(){
+    private void move()throws InvalidMoveException{
         if(!this.canMove()){
-            throw new RuntimeException("Invalid move attempted!" + this.getCoordAsInt());
+            throw new InvalidMoveException("Invalid move attempted!" + this.getCoordAsInt());
         }
         Stone tNorth = this.north;
         Stone tEast = this.east;
@@ -379,7 +379,11 @@ public class Stone{
                     y--;
                     break;
             }
-            doMove(x, y);
+            try {
+                doMove(x, y);                
+            } catch (InvalidMoveException e) {
+                e.printStackTrace();
+            }
         }
         int[] result = ArrayUtils.toPrimitive(moves.toArray(new Integer[moves.size()]));
         ArrayUtils.reverse(result);
@@ -390,7 +394,12 @@ public class Stone{
         for(int i = 0; i < solution.length; i++){
             int xCoord = (solution[i] - 1) % 4;
             int yCoord = (solution[i] - 1) / 4;
-            this.doMove(xCoord, yCoord);
+            try{
+                this.doMove(xCoord, yCoord);
+            }
+            catch(InvalidMoveException e){
+                return false;
+            }
         }
         return isSolved();
     }

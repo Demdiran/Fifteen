@@ -3,8 +3,6 @@ package nl.sogyo.fifteen;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 public class StoneTest{
@@ -251,7 +249,7 @@ public class StoneTest{
 //Doing a move------------------------------------------------------
 
     @Test
-    public void TestValidMoveMovedStone1(){
+    public void TestValidMoveMovedStone1()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(2,3);
         Stone bottomRight = stone1.getFromCoordinate(3, 3);
@@ -259,7 +257,7 @@ public class StoneTest{
     }
     
     @Test
-    public void TestValidMoveMovedStone2(){
+    public void TestValidMoveMovedStone2()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3,2);
         Stone bottomRight = stone1.getFromCoordinate(3, 3);
@@ -267,7 +265,7 @@ public class StoneTest{
     }
     
     @Test
-    public void TestValidMoveMovedStone3(){
+    public void TestValidMoveMovedStone3()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(2,3);
         stone1.doMove(3, 3);
@@ -276,7 +274,7 @@ public class StoneTest{
     }
     
     @Test
-    public void TestValidMoveMovedStone4(){
+    public void TestValidMoveMovedStone4()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3,2);
         stone1.doMove(3, 3);
@@ -287,7 +285,7 @@ public class StoneTest{
 //Origin has moved-------------------------------------------
 
     @Test
-    public void TestOriginHasMovedEast(){
+    public void TestOriginHasMovedEast()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         stone1.doMove(3, 1);
@@ -300,7 +298,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestOriginHasMovedSouth(){
+    public void TestOriginHasMovedSouth()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(2, 3);
         stone1.doMove(1, 3);
@@ -313,7 +311,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestGetNorthOfOrigin(){
+    public void TestGetNorthOfOrigin()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(2, 3);
         stone1.doMove(1, 3);
@@ -326,7 +324,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestGetWestOfOrigin(){
+    public void TestGetWestOfOrigin()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         stone1.doMove(3, 1);
@@ -349,7 +347,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestBoardPrintAfterMove1(){
+    public void TestBoardPrintAfterMove1()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         stone1.doMove(2, 2);
@@ -368,7 +366,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestPuzzleSolvedFalse1(){
+    public void TestPuzzleSolvedFalse1()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         boolean solved = stone1.isSolved();
@@ -376,7 +374,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestPuzzleSolvedFalse2(){
+    public void TestPuzzleSolvedFalse2()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         stone1.doMove(2, 2);
@@ -389,14 +387,14 @@ public class StoneTest{
 //Test creating new random solvable puzzle----------------
 
     @Test
-    public void TestTrySolution1(){
+    public void TestTrySolution1()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         boolean isSolution = stone1.trySolution(new int[] {16});
         assert(isSolution);
     }
     @Test
-    public void TestTrySolution2(){
+    public void TestTrySolution2()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         boolean isSolution = stone1.trySolution(new int[] {11});
@@ -438,7 +436,7 @@ public class StoneTest{
     }
 
     @Test
-    public void TestHeuristic2(){
+    public void TestHeuristic2()throws InvalidMoveException{
         Stone stone1 = new Stone();
         stone1.doMove(3, 2);
         stone1.doMove(2, 2);

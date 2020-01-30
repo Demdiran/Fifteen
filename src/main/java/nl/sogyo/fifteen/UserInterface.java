@@ -97,11 +97,16 @@ public class UserInterface extends JFrame {
     }
 
     void solvePuzzle() {
-        ArrayList<Integer> solution = (ArrayList<Integer>) FifteenSolver.solveFifteenPuzzle(board).clone();
+        ArrayList<Integer> solution = FifteenSolver.solveFifteenPuzzle(board);
         int interval = 500;
         Timer timer = new Timer(interval, new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                board.doMove(solution.get(0));
+                try{
+                    board.doMove(solution.get(0));
+                }
+                catch(InvalidMoveException exception){
+                    ((Timer) e.getSource()).stop();
+                }
                 solution.remove(0);
                 updateFrame();
                 if(solution.isEmpty()){
