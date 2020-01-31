@@ -275,7 +275,7 @@ public class Stone{
 
     private void move()throws InvalidMoveException{
         if(!this.canMove()){
-            throw new InvalidMoveException("Invalid move attempted!" + this.getCoordAsInt());
+            throw new InvalidMoveException("Invalid move attempted at: " + this.getCoordAsInt());
         }
         Stone tNorth = this.north;
         Stone tEast = this.east;
