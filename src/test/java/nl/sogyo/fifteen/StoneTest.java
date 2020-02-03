@@ -12,4 +12,14 @@ public class StoneTest{
         int value12 = stone12.getValue();
         assertEquals(12, value12);
     }
+
+    @Test
+    public void TestStoneHasEast2(){
+        NonStone nonStone = new NonStone();
+        Stone stone8 = (Stone) nonStone.getStepsNorth(2);
+        Stone stone5 = (Stone) stone8.getStepsWest(3);
+        Stone stone6 = (Stone) stone5.getEast();
+        int value6 = stone6.getValue();
+        assertEquals(6, value6);
+    }
 }
