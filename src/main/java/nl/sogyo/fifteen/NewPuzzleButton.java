@@ -2,7 +2,7 @@ package nl.sogyo.fifteen;
 
 import javax.swing.*;
 import java.awt.event.*;
-
+/*
 class NewPuzzleButton extends JButton implements ActionListener{
     int difficulty;
 
@@ -18,4 +18,4 @@ class NewPuzzleButton extends JButton implements ActionListener{
         frame.newPuzzle(difficulty);
     }
     
-}
+}*/

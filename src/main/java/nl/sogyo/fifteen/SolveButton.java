@@ -2,7 +2,7 @@ package nl.sogyo.fifteen;
 
 import javax.swing.*;
 import java.awt.event.*;
-
+/*
 class SolveButton extends JButton implements ActionListener{
     SolveButton(String name){
         super(name);
@@ -15,4 +15,4 @@ class SolveButton extends JButton implements ActionListener{
         frame.solvePuzzle();
     }
 
-}
+}*/

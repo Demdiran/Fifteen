@@ -2,7 +2,7 @@ package nl.sogyo.fifteen;
 
 import javax.swing.*;
 import java.awt.event.*;
-
+/*
 class StoneButton extends JButton implements ActionListener{
     private Stone stone;
 
@@ -35,4 +35,4 @@ class StoneButton extends JButton implements ActionListener{
             frame.updateFrame();
         }
     }
-}
+}*/

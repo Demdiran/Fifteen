@@ -8,7 +8,7 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.*;
-
+/*
 public class UserInterface extends JFrame {
     Stone board = new Stone();
 
@@ -117,4 +117,4 @@ public class UserInterface extends JFrame {
         timer.start();
     }
 
-}
+}*/

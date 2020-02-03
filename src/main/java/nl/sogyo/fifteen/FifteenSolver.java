@@ -2,7 +2,7 @@ package nl.sogyo.fifteen;
 
 import java.util.*;
 class FifteenSolver{
-    private int heuristic;
+    /*private int heuristic;
     private int move;
     private FifteenSolver parent;
     private ArrayList<FifteenSolver> children;
@@ -156,5 +156,5 @@ class FifteenSolver{
             }
         }
         this.heuristic = minimumHeuristicOfNextStep + 1;
-    }
+    }*/
 }
