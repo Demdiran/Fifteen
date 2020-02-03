@@ -1,48 +1,25 @@
 package nl.sogyo.fifteen;
 
-class Stone{
+class Stone extends SuperStone{
     private int value;
-    private Stone north;
-    private Stone west;
 
     Stone(int value){
         this.value = value;
         boolean isLeftOfBoard = value % 4 == 1;
         if(!isLeftOfBoard){
-            this.west = new Stone(value - 1);
+            this.west = new Stone(value - 1, this);
         }
         if(value > 4){
             this.north = new Stone(value - 4);
         }
     }
 
-    Stone getNorth(){
-        return this.north;
-    }
-
-    Stone getWest(){
-        return this.west;
+    Stone(int value, SuperStone east){
+        this(value);
+        this.east = east;
     }
 
     int getValue(){
         return value;
-    }
-
-    Stone getStepsWest(int steps){
-        if(steps == 0){
-            return this;
-        }
-        else{
-            return this.west.getStepsWest(steps - 1);
-        }
-    }
-
-    Stone getStepsNorth(int steps){
-        if(steps == 0){
-            return this;
-        }
-        else{
-            return this.north.getStepsNorth(steps - 1);
-        }
     }
 }
