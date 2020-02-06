@@ -61,13 +61,13 @@ class NonStone extends SuperStone{
                 exEast.west = this.east;
         }
         if(direction == "south"){
-            this.west = exSouth.getWest();
+            this.west = exSouth.west;
             if(this.west != null)
                 this.west.east = this;
-            this.east = exSouth.getEast();
+            this.east = exSouth.east;
             if(this.east != null)
                 this.east.west = this;
-            this.south = exSouth.getSouth();
+            this.south = exSouth.south;
             if(this.south != null)
                 this.south.north = this;
             this.north = exSouth;
@@ -76,9 +76,35 @@ class NonStone extends SuperStone{
             this.north.east = exEast;
             this.north.north = exNorth;
 
-            exWest.east = this.north;
-            exNorth.south = this.north;
-            exEast.west = this.north;
+            if(exWest != null)
+                exWest.east = this.north;
+            if(exNorth != null)
+                exNorth.south = this.north;
+            if(exEast != null)
+                exEast.west = this.north;
+        }
+        if(direction == "east"){
+            this.north = exEast.north;
+            if(this.north != null)
+                this.north.south = this;
+            this.east = exEast.east;
+            if(this.east != null)
+                this.east.west = this;
+            this.south = exEast.south;
+            if(this.south != null)
+                this.south.north = this;
+            this.west = exEast;
+            this.west.east = this;
+            this.west.south = exSouth;
+            this.west.west = exWest;
+            this.west.north = exNorth;
+
+            if(exSouth != null)
+                exSouth.north = this.west;
+            if(exWest != null)
+                exWest.east = this.west;
+            if(exNorth != null)
+                exNorth.south = this.west;
         }
     }
 }

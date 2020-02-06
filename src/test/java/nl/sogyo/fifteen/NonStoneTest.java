@@ -286,6 +286,45 @@ public class NonStoneTest{
 
     }
 
+    @Test
+    public void TestMoveEastOwnNeighbours(){
+        NonStone nonStone = new NonStone();
+        nonStone.move("west");
+        nonStone.move("west");
+        nonStone.move("north");
+        nonStone.move("east");
+
+        Stone stone7 = (Stone) nonStone.getNorth();
+        Stone stone12 = (Stone) nonStone.getEast();
+        Stone stone14 = (Stone) nonStone.getSouth();
+        Stone stone11 = (Stone) nonStone.getWest();
+
+        assertEquals(7, stone7.getValue());
+        assertEquals(12, stone12.getValue());
+        assertEquals(14, stone14.getValue());
+        assertEquals(11, stone11.getValue());
+    }
+
+    @Test
+    public void TestMoveEastOtherNeighbours(){
+        NonStone nonStone = new NonStone();
+        nonStone.move("west");
+        nonStone.move("west");
+        nonStone.move("north");
+        nonStone.move("east");
+
+        Stone stone11 = (Stone) nonStone.getWest();
+        Stone stone6 = (Stone) stone11.getNorth();
+        Stone stone10 = (Stone) stone11.getSouth();
+        Stone stone9 = (Stone) stone11.getWest();
+        
+        assertEquals(6, stone6.getValue());
+        assertEquals(9, stone9.getValue());
+        assertEquals(10, stone10.getValue());
+        TestNeighbours(nonStone);
+        TestNeighbours(stone11);
+    }
+
     private void TestNeighbours(SuperStone stone){
         if(stone.getNorth() != null)
             assertEquals(stone, stone.getNorth().getSouth(), "north failed");
