@@ -29,6 +29,13 @@ class NonStone extends SuperStone{
             this.south.west = exWest;
             this.south.south = exSouth;
             this.south.east = exEast;
+
+            if(exWest != null)
+                exWest.east = this.south;
+            if(exSouth != null)
+                exSouth.north = this.south;
+            if(exEast != null)
+                exEast.west = this.south;
         }
         if(direction == "west"){
             this.west = exWest.west;
@@ -45,6 +52,33 @@ class NonStone extends SuperStone{
             this.east.north = exNorth;
             this.east.south = exSouth;
             this.east.east = exEast;
+
+            if(exNorth != null)
+                exNorth.south = this.east;
+            if(exSouth != null)
+                exSouth.north = this.east;
+            if(exEast != null)
+                exEast.west = this.east;
+        }
+        if(direction == "south"){
+            this.west = exSouth.getWest();
+            if(this.west != null)
+                this.west.east = this;
+            this.east = exSouth.getEast();
+            if(this.east != null)
+                this.east.west = this;
+            this.south = exSouth.getSouth();
+            if(this.south != null)
+                this.south.north = this;
+            this.north = exSouth;
+            this.north.south = this;
+            this.north.west = exWest;
+            this.north.east = exEast;
+            this.north.north = exNorth;
+
+            exWest.east = this.north;
+            exNorth.south = this.north;
+            exEast.west = this.north;
         }
     }
 }
