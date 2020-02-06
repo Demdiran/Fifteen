@@ -59,4 +59,18 @@ abstract class SuperStone{
     SuperStone getWest(){
         return this.west;
     }
+
+    void connectToNeighbours(SuperStone east, SuperStone south, SuperStone west){
+        this.east = east;
+        this.south = south;
+        this.west = west;
+        if(this.north != null){
+            SuperStone nextWest = west != null ? west.north : null;
+            SuperStone nextEast = east != null ? east.north : null;
+            this.north.connectToNeighbours(nextEast, this, nextWest);
+        }
+        if(south == null && west != null){
+            west.connectToNeighbours(this, null, west.west);
+        }
+    }
 }

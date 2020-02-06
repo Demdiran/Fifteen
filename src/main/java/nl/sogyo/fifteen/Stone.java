@@ -7,7 +7,7 @@ class Stone extends SuperStone{
         this.value = value;
         boolean isLeftOfBoard = value % 4 == 1;
         if(!isLeftOfBoard){
-            this.west = new Stone(value - 1, this);
+            this.west = new Stone(value - 1);
         }
         if(value > 4){
             this.north = new Stone(value - 4);
@@ -16,8 +16,8 @@ class Stone extends SuperStone{
 
     Stone(int value, SuperStone east){
         this(value);
-        this.east = east;
     }
+
 
     int getValue(){
         return value;
