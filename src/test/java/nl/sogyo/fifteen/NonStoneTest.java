@@ -344,6 +344,26 @@ public class NonStoneTest{
         assert(!nonStone.isSolved());
     }
 
+    @Test
+    public void TestHeuristic1(){
+        NonStone nonStone = new NonStone();
+        int heuristic = nonStone.calculateHeuristic();
+        assertEquals(0, heuristic);
+    }
+
+    @Test
+    public void TestHeuristic2()throws InvalidMoveException{
+        NonStone nonStone = new NonStone();
+        nonStone.move("north");
+        nonStone.move("north");
+        nonStone.move("west");
+        nonStone.move("north");
+        nonStone.move("west");
+        nonStone.move("south");
+        int heuristic = nonStone.calculateHeuristic();
+        assertEquals(6, heuristic);
+    }
+
     private void TestNeighbours(SuperStone stone){
         if(stone.getNorth() != null)
             assertEquals(stone, stone.getNorth().getSouth(), "north failed");

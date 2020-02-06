@@ -21,6 +21,20 @@ class NonStone extends SuperStone{
         return getTopLeft().getFromRelativeCoordinate(x, y);
     }
 
+    @Override
+    int heuristicCalculation() {
+        int total = 0;
+        if(this.west == null && this.south != null)
+            total += this.south.heuristicCalculation();
+        if(this.east != null)
+            total += this.east.heuristicCalculation();
+        return total;
+    }
+
+    public int calculateHeuristic(){
+        return this.getTopLeft().heuristicCalculation();
+    }
+
     public void generatePuzzle(int numberOfMoves){
         String lastMove = "";
         Random random = new Random();

@@ -33,6 +33,16 @@ class Stone extends SuperStone{
         return westSolved && northSolved;
     }
 
+    @Override
+    int heuristicCalculation(){
+        int total = this.getOwnHeuristic();
+        if(this.west == null && this.south != null)
+            total += this.south.heuristicCalculation();
+        if(this.east != null)
+            total += this.east.heuristicCalculation();
+        return total;        
+    }
+
     Stone(int value, SuperStone east){
         this(value);
     }
@@ -40,5 +50,13 @@ class Stone extends SuperStone{
 
     int getValue(){
         return value;
+    }
+
+    int getOwnHeuristic(){
+        int x = this.getXCoord();
+        int y = this.getYCoord();
+        int goalx = (this.value - 1) % 4;
+        int goaly = (this.value - 1)/ 4;
+        return Math.abs(x - goalx) + Math.abs(y - goaly);
     }
 }

@@ -60,6 +60,26 @@ abstract class SuperStone{
         return this.west;
     }
 
+    int getXCoord(){
+        if(this.west == null){
+            return 0;
+        }
+        else{
+            return this.west.getXCoord() + 1;
+        }
+    }
+
+    int getYCoord(){
+        if(this.north == null){
+            return 0;
+        }
+        else{
+            return this.north.getYCoord() + 1;
+        }
+    }
+
+    abstract int heuristicCalculation();
+
     SuperStone getFromRelativeCoordinate(int x, int y){
         SuperStone xSteps;
 		if(x >= 0)

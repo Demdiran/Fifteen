@@ -12,7 +12,7 @@ class SolveButton extends JButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         UserInterface frame = (UserInterface) this.getTopLevelAncestor();
-        //frame.solvePuzzle();
+        frame.solvePuzzle();
     }
 
 }

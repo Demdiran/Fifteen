@@ -92,29 +92,30 @@ public class UserInterface extends JFrame {
 
     void newPuzzle(int difficulty) {
         this.nonStone = new NonStone();
-        nonStone.generatePuzzle(difficulty);
+        this.nonStone.generatePuzzle(difficulty);
         this.updateFrame();
     }
 
-    // void solvePuzzle() {
-    //     ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(nonStone);
-    //     int interval = 500;
-    //     Timer timer = new Timer(interval, new ActionListener(){
-    //         public void actionPerformed(ActionEvent e){
-    //             try{
-    //                 nonStone.move(solution.get(0));
-    //             }
-    //             catch(InvalidMoveException exception){
-    //                 ((Timer) e.getSource()).stop();
-    //             }
-    //             solution.remove(0);
-    //             updateFrame();
-    //             if(solution.isEmpty()){
-    //                 ((Timer)e.getSource()).stop();
-    //             }
-    //         }
-    //     });
-    //     timer.start();
-    // }
+    void solvePuzzle() {
+        ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(nonStone);
+        System.out.println(solution);
+        int interval = 500;
+        Timer timer = new Timer(interval, new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{
+                    nonStone.move(solution.get(0));
+                }
+                catch(InvalidMoveException exception){
+                    ((Timer) e.getSource()).stop();
+                }
+                solution.remove(0);
+                updateFrame();
+                if(solution.isEmpty()){
+                    ((Timer)e.getSource()).stop();
+                }
+            }
+        });
+        timer.start();
+    }
 
 }
