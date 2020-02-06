@@ -10,6 +10,8 @@ class NonStone extends SuperStone{
     }
 
     boolean isSolved(){
+        if(this.north == null || this.west == null)
+            return false;
         boolean northSolved = (((Stone) this.north).getValue() == 12) && this.north.isSolved();
         boolean westSolved = (((Stone) this.west).getValue() == 15 && this.west.isSolved());
         return westSolved && northSolved;

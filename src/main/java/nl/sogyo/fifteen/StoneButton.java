@@ -26,7 +26,6 @@ class StoneButton extends JButton implements ActionListener{
         if(nonStone.getWest() == clicked)
             direction = "west";
         try {
-            System.out.println(direction);
             this.nonStone.move(direction);               
         } catch (InvalidMoveException e) {
         }
