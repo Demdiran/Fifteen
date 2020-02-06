@@ -106,7 +106,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveNorthOwnNeighbours(){
+    public void TestMoveNorthOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         Stone stone12 = (Stone) nonStone.getSouth();
@@ -120,7 +120,7 @@ public class NonStoneTest{
         assertEquals(null, none);
     }
     @Test
-    public void TestMoveNorthOtherNeighbours(){
+    public void TestMoveNorthOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         Stone stone12 = (Stone) nonStone.getSouth();
@@ -132,7 +132,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveWestOwnNeighbours(){
+    public void TestMoveWestOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         Stone none = (Stone) nonStone.getSouth();
@@ -146,7 +146,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveWestOtherNeighbours(){
+    public void TestMoveWestOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         Stone stone15 = (Stone) nonStone.getEast();
@@ -159,7 +159,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveWestNorthNorthOwnNeighbours(){
+    public void TestMoveWestNorthNorthOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         nonStone.move("north");
@@ -177,7 +177,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveWestNorthNorthOtherNeighbours(){
+    public void TestMoveWestNorthNorthOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         nonStone.move("north");
@@ -196,7 +196,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveNorthWestWestOwnNeighbours(){
+    public void TestMoveNorthWestWestOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         nonStone.move("west");
@@ -214,7 +214,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveNorthWestWestOtherNeighbours(){
+    public void TestMoveNorthWestWestOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         nonStone.move("west");
@@ -233,7 +233,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveNorthThrice(){
+    public void TestMoveNorthThrice()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         nonStone.move("north");
@@ -247,7 +247,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveSouthOwnNeighbours(){
+    public void TestMoveSouthOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         nonStone.move("north");
@@ -266,7 +266,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveSouthOtherNeighbours(){
+    public void TestMoveSouthOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("north");
         nonStone.move("north");
@@ -287,7 +287,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveEastOwnNeighbours(){
+    public void TestMoveEastOwnNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         nonStone.move("west");
@@ -306,7 +306,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestMoveEastOtherNeighbours(){
+    public void TestMoveEastOtherNeighbours()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.move("west");
         nonStone.move("west");
@@ -326,7 +326,7 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestGenerateRandomPuzzle(){
+    public void TestGenerateRandomPuzzle()throws InvalidMoveException{
         NonStone nonStone = new NonStone();
         nonStone.generatePuzzle(25);
     }

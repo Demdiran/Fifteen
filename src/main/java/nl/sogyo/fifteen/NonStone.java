@@ -9,7 +9,7 @@ class NonStone extends SuperStone{
         connectToNeighbours(null, null, this.west);
     }
 
-    public void generatePuzzle(int numberOfMoves){
+    public void generatePuzzle(int numberOfMoves)throws InvalidMoveException{
         String lastMove = "";
         Random random = new Random();
         while(numberOfMoves > 0){
@@ -29,12 +29,13 @@ class NonStone extends SuperStone{
         }
     }
 
-    public void move(String direction){
+    public void move(String direction)throws InvalidMoveException{
         SuperStone exNorth = this.north;
         SuperStone exWest = this.west;
         SuperStone exSouth = this.south;
         SuperStone exEast = this.east;
         if(direction == "north"){
+            if(this.north == null)throw new InvalidMoveException("Moved too far north");
             this.west = exNorth.west;
             if(this.west != null)
                 this.west.east = this;
@@ -59,6 +60,7 @@ class NonStone extends SuperStone{
                 exEast.west = this.south;
         }
         if(direction == "west"){
+            if(this.west == null)throw new InvalidMoveException("Moved too far west");
             this.west = exWest.west;
             if(this.west != null)
                 this.west.east = this;
@@ -82,6 +84,7 @@ class NonStone extends SuperStone{
                 exEast.west = this.east;
         }
         if(direction == "south"){
+            if(this.south == null)throw new InvalidMoveException("Moved too far south");
             this.west = exSouth.west;
             if(this.west != null)
                 this.west.east = this;
@@ -105,6 +108,7 @@ class NonStone extends SuperStone{
                 exEast.west = this.north;
         }
         if(direction == "east"){
+            if(this.east == null)throw new InvalidMoveException("Moved too far east");
             this.north = exEast.north;
             if(this.north != null)
                 this.north.south = this;
