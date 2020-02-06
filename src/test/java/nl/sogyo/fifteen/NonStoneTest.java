@@ -326,9 +326,22 @@ public class NonStoneTest{
     }
 
     @Test
-    public void TestGenerateRandomPuzzle()throws InvalidMoveException{
+    public void TestGenerateRandomPuzzle(){
         NonStone nonStone = new NonStone();
         nonStone.generatePuzzle(25);
+    }
+
+    @Test
+    public void TestIsSolvedTrue(){
+        NonStone nonStone = new NonStone();
+        assert(nonStone.isSolved());
+    }
+
+    @Test
+    public void TestIsSolvedFalse()throws InvalidMoveException{
+        NonStone nonStone = new NonStone();
+        nonStone.move("north");
+        assert(!nonStone.isSolved());
     }
 
     private void TestNeighbours(SuperStone stone){

@@ -9,7 +9,17 @@ class NonStone extends SuperStone{
         connectToNeighbours(null, null, this.west);
     }
 
-    public void generatePuzzle(int numberOfMoves)throws InvalidMoveException{
+    boolean isSolved(){
+        boolean northSolved = (((Stone) this.north).getValue() == 12) && this.north.isSolved();
+        boolean westSolved = (((Stone) this.west).getValue() == 15 && this.west.isSolved());
+        return westSolved && northSolved;
+    }
+
+    public SuperStone getFromAbsolutePosition(int x, int y){
+        return getTopLeft().getFromRelativeCoordinate(x, y);
+    }
+
+    public void generatePuzzle(int numberOfMoves){
         String lastMove = "";
         Random random = new Random();
         while(numberOfMoves > 0){
@@ -24,7 +34,12 @@ class NonStone extends SuperStone{
                 possibleMoves.add("west");
 
             int move = random.nextInt(possibleMoves.size());
-            this.move(possibleMoves.get(move));
+            try{
+                this.move(possibleMoves.get(move));
+            }
+            catch(InvalidMoveException e){
+                e.printStackTrace();
+            }
             numberOfMoves--;
         }
     }

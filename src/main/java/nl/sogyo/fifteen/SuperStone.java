@@ -60,6 +60,29 @@ abstract class SuperStone{
         return this.west;
     }
 
+    SuperStone getFromRelativeCoordinate(int x, int y){
+        SuperStone xSteps;
+		if(x >= 0)
+            xSteps = this.getStepsEast(x);
+        else
+            xSteps = this.getStepsWest(-x);
+        
+        if(y >= 0)
+            return xSteps.getStepsSouth(y);
+        else
+            return xSteps.getStepsNorth(-y);
+    }
+
+    SuperStone getTopLeft(){
+        if(this.north != null)
+            return this.north.getTopLeft();
+        if(this.west != null)
+            return this.west.getTopLeft();
+        return this;
+    }
+    
+    abstract boolean isSolved();
+
     void connectToNeighbours(SuperStone east, SuperStone south, SuperStone west){
         this.east = east;
         this.south = south;

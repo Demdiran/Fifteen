@@ -14,6 +14,25 @@ class Stone extends SuperStone{
         }
     }
 
+    boolean isSolved(){
+        boolean northSolved;
+        boolean westSolved;
+        if(this.north == null && this.value - 4 <= 0)
+            northSolved = true;
+        else if(this.north == null)
+            return false;
+        else
+            northSolved = (((Stone) this.north).getValue() == this.value - 4) && this.north.isSolved();
+
+        if(this.west == null && this.value % 4 == 1)
+            westSolved = true;
+        else if(this.west == null)
+            westSolved = false;
+        else
+            westSolved = (((Stone) this.west).getValue() == this.value - 1 && this.west.isSolved());
+        return westSolved && northSolved;
+    }
+
     Stone(int value, SuperStone east){
         this(value);
     }

@@ -8,13 +8,13 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.*;
-/*
-public class UserInterface extends JFrame {
-    Stone board = new Stone();
 
-    public static void main(String[] args) {
+public class UserInterface extends JFrame {
+    NonStone nonStone = new NonStone();
+
+    public static void main(String[] args){
         UserInterface ui = new UserInterface("Fifteen");
-        ui.board.generateNewPuzzle(50);
+        ui.nonStone.generatePuzzle(50);
         ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ui.updateFrame();
         ui.setLocationRelativeTo(null);
@@ -31,9 +31,9 @@ public class UserInterface extends JFrame {
         for (int i = 0; i < 16; i++) {
             int xCoord = i % 4;
             int yCoord = i / 4;
-            Stone tempStone = this.board.getFromCoordinate(xCoord, yCoord);
-            if (tempStone.getValue() != 16) {
-                StoneButton tempButton = new StoneButton(this.board, "" + tempStone.getValue());
+            SuperStone tempStone = this.nonStone.getFromAbsolutePosition(xCoord, yCoord);
+            if (tempStone instanceof Stone) {
+                StoneButton tempButton = new StoneButton(this.nonStone, "" + ((Stone) tempStone).getValue());
                 tempButton.setBounds(xCoord * 100, yCoord * 100, 100, 100);
                 contentPane.add(tempButton);
             }
@@ -48,9 +48,9 @@ public class UserInterface extends JFrame {
         for (int i = 0; i < 16; i++) {
             int xCoord = i % 4;
             int yCoord = i / 4;
-            Stone tempStone = this.board.getFromCoordinate(xCoord, yCoord);
-            if (tempStone.getValue() != 16) {
-                StoneButton tempButton = new StoneButton(this.board, "" + tempStone.getValue());
+            SuperStone tempStone = this.nonStone.getFromAbsolutePosition(xCoord, yCoord);
+            if (tempStone instanceof Stone) {
+                StoneButton tempButton = new StoneButton(this.nonStone, "" + ((Stone) tempStone).getValue());
                 tempButton.setBounds(xCoord * 100, yCoord * 100, 100, 100);
                 tempButton.setBackground(backgroundColor);
                 contentPane.add(tempButton);
@@ -91,30 +91,30 @@ public class UserInterface extends JFrame {
     }
 
     void newPuzzle(int difficulty) {
-        this.board = new Stone();
-        board.generateNewPuzzle(difficulty);
+        this.nonStone = new NonStone();
+        nonStone.generatePuzzle(difficulty);
         this.updateFrame();
     }
 
-    void solvePuzzle() {
-        ArrayList<Integer> solution = FifteenSolver.solveFifteenPuzzle(board);
-        int interval = 500;
-        Timer timer = new Timer(interval, new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                try{
-                    board.doMove(solution.get(0));
-                }
-                catch(InvalidMoveException exception){
-                    ((Timer) e.getSource()).stop();
-                }
-                solution.remove(0);
-                updateFrame();
-                if(solution.isEmpty()){
-                    ((Timer)e.getSource()).stop();
-                }
-            }
-        });
-        timer.start();
-    }
+    // void solvePuzzle() {
+    //     ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(nonStone);
+    //     int interval = 500;
+    //     Timer timer = new Timer(interval, new ActionListener(){
+    //         public void actionPerformed(ActionEvent e){
+    //             try{
+    //                 nonStone.move(solution.get(0));
+    //             }
+    //             catch(InvalidMoveException exception){
+    //                 ((Timer) e.getSource()).stop();
+    //             }
+    //             solution.remove(0);
+    //             updateFrame();
+    //             if(solution.isEmpty()){
+    //                 ((Timer)e.getSource()).stop();
+    //             }
+    //         }
+    //     });
+    //     timer.start();
+    // }
 
-}*/
+}
