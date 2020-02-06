@@ -1,11 +1,32 @@
 package nl.sogyo.fifteen;
 
+import java.util.*;
 class NonStone extends SuperStone{
 
     public NonStone(){
         this.north = new Stone(12);
         this.west = new Stone(15, this);
         connectToNeighbours(null, null, this.west);
+    }
+
+    public void generatePuzzle(int numberOfMoves){
+        String lastMove = "";
+        Random random = new Random();
+        while(numberOfMoves > 0){
+            List<String> possibleMoves = new ArrayList<String>();
+            if(this.north != null && lastMove != "north")
+                possibleMoves.add("north");
+            if(this.east != null && lastMove != "east")
+                possibleMoves.add("east");
+            if(this.south != null && lastMove != "south")
+                possibleMoves.add("south");
+            if(this.west != null && lastMove != "west")
+                possibleMoves.add("west");
+
+            int move = random.nextInt(possibleMoves.size());
+            this.move(possibleMoves.get(move));
+            numberOfMoves--;
+        }
     }
 
     public void move(String direction){

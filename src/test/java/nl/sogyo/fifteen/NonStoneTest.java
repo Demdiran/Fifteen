@@ -325,6 +325,12 @@ public class NonStoneTest{
         TestNeighbours(stone11);
     }
 
+    @Test
+    public void TestGenerateRandomPuzzle(){
+        NonStone nonStone = new NonStone();
+        nonStone.generatePuzzle(25);
+    }
+
     private void TestNeighbours(SuperStone stone){
         if(stone.getNorth() != null)
             assertEquals(stone, stone.getNorth().getSouth(), "north failed");
