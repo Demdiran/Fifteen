@@ -36,22 +36,23 @@ class NonStone extends SuperStone{
     }
 
     public void generatePuzzle(int numberOfMoves){
-        String lastMove = "";
+        String previousMove = "";
         Random random = new Random();
         while(numberOfMoves > 0){
             List<String> possibleMoves = new ArrayList<String>();
-            if(this.north != null && lastMove != "north")
+            if(this.north != null && previousMove != "north")
                 possibleMoves.add("north");
-            if(this.east != null && lastMove != "east")
+            if(this.east != null && previousMove != "east")
                 possibleMoves.add("east");
-            if(this.south != null && lastMove != "south")
+            if(this.south != null && previousMove != "south")
                 possibleMoves.add("south");
-            if(this.west != null && lastMove != "west")
+            if(this.west != null && previousMove != "west")
                 possibleMoves.add("west");
 
             int move = random.nextInt(possibleMoves.size());
+            previousMove = possibleMoves.get(move);
             try{
-                this.move(possibleMoves.get(move));
+                this.move(previousMove);
             }
             catch(InvalidMoveException e){
                 e.printStackTrace();

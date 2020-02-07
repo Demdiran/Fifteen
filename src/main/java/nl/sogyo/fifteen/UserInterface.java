@@ -98,6 +98,7 @@ public class UserInterface extends JFrame {
 
     void solvePuzzle() {
         ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(nonStone);
+        System.out.print(solution.size());
         System.out.println(solution);
         int interval = 500;
         Timer timer = new Timer(interval, new ActionListener(){

@@ -78,24 +78,84 @@ class FifteenSolver{
                 lastmove = this.move;
             }
             if(lastmove != "south" && board.getNorth() != null){
+                Stone tempStone = (Stone) board.getNorth();
+                int heuristicBefore = tempStone.getOwnHeuristic();
                 board.move("north");
-                children.add(new FifteenSolver(board, board.calculateHeuristic(), this, "north"));
+                int heuristicAfter = tempStone.getOwnHeuristic();
                 board.move("south");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "north");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                }
             }
             if(lastmove != "west" && board.getEast() != null){
+                Stone tempStone = (Stone) board.getEast();
+                int heuristicBefore = tempStone.getOwnHeuristic();
                 board.move("east");
-                children.add(new FifteenSolver(board, board.calculateHeuristic(), this, "east"));
-                board.move("west");                
+                int heuristicAfter = tempStone.getOwnHeuristic();
+                board.move("west");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "east");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                }
             }
             if(lastmove != "north" && board.getSouth() != null){
+                Stone tempStone = (Stone) board.getSouth();
+                int heuristicBefore = tempStone.getOwnHeuristic();
                 board.move("south");
-                children.add(new FifteenSolver(board, board.calculateHeuristic(), this, "south"));
-                board.move("north");                
+                int heuristicAfter = tempStone.getOwnHeuristic();
+                board.move("north");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "south");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                }           
             }
             if(lastmove != "east" && board.getWest() != null){
+                Stone tempStone = (Stone) board.getWest();
+                int heuristicBefore = tempStone.getOwnHeuristic();
                 board.move("west");
-                children.add(new FifteenSolver(board, board.calculateHeuristic(), this, "west"));
-                board.move("east");                
+                int heuristicAfter = tempStone.getOwnHeuristic();
+                board.move("east");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "west");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                } 
             }
             this.updateHeuristic();
             Collections.shuffle(this.children);
