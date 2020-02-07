@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class FifteenSolverTest{
     @Test
     public void TestSolver()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
-        nonStone.generatePuzzle(50);
-        ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(nonStone);
-        boolean isSolver = nonStone.trySolution(solution);
+        BoardHole boardAccess = new BoardHole();
+        boardAccess.generateRandomPuzzle(50);
+        ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(boardAccess);
+        boolean isSolver = boardAccess.testSolution(solution);
         assert(isSolver);
     }
 }

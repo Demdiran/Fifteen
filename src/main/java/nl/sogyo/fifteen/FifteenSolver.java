@@ -6,24 +6,24 @@ class FifteenSolver{
     private String move;
     private FifteenSolver parent;
     private ArrayList<FifteenSolver> children;
-    private NonStone board;
+    private BoardHole board;
 
-    public static ArrayList<String> solveFifteenPuzzle(NonStone board){
-        FifteenSolver origin = new FifteenSolver(board);
+    public static ArrayList<String> solveFifteenPuzzle(BoardHole board){
+        FifteenSolver rootNode = new FifteenSolver(board);
         boolean foundSolution = false;
-        if(origin.heuristic == 0){
+        if(rootNode.heuristic == 0){
             foundSolution = true;
         }
 
         while(!foundSolution){
             try {
-                foundSolution = origin.solveStep();                
+                foundSolution = rootNode.solveStep();                
             } catch (InvalidMoveException e) {
                 e.printStackTrace();
                 foundSolution = true;
             }
         }
-        ArrayList<String> result = origin.getSolution();
+        ArrayList<String> result = rootNode.getSolution();
         result.remove(0);
         return result;
     }
@@ -46,14 +46,13 @@ class FifteenSolver{
         }
     }
 
-    private FifteenSolver(NonStone board){
+    private FifteenSolver(BoardHole board){
         this.board = board;
         this.heuristic = board.calculateHeuristic();
         this.move = "";
     }
 
-    private FifteenSolver(NonStone board, int heuristic, FifteenSolver parent, String move){
-        //System.out.println("Node with heuristic " + heuristic + ", and move " + move);
+    private FifteenSolver(BoardHole board, int heuristic, FifteenSolver parent, String move){
         this.board = board;
         this.heuristic = heuristic;
         this.parent = parent;
@@ -77,11 +76,11 @@ class FifteenSolver{
             if(this.parent != null){
                 lastmove = this.move;
             }
-            if(lastmove != "south" && board.getNorth() != null){
-                Stone tempStone = (Stone) board.getNorth();
-                int heuristicBefore = tempStone.getOwnHeuristic();
+            if(lastmove != "south" && board.getNorthNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getNorthNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
                 board.move("north");
-                int heuristicAfter = tempStone.getOwnHeuristic();
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
                 board.move("south");
                 int difference = heuristicAfter - heuristicBefore;
                 FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "north");
@@ -97,11 +96,11 @@ class FifteenSolver{
                     }
                 }
             }
-            if(lastmove != "west" && board.getEast() != null){
-                Stone tempStone = (Stone) board.getEast();
-                int heuristicBefore = tempStone.getOwnHeuristic();
+            if(lastmove != "west" && board.getEastNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getEastNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
                 board.move("east");
-                int heuristicAfter = tempStone.getOwnHeuristic();
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
                 board.move("west");
                 int difference = heuristicAfter - heuristicBefore;
                 FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "east");
@@ -117,11 +116,11 @@ class FifteenSolver{
                     }
                 }
             }
-            if(lastmove != "north" && board.getSouth() != null){
-                Stone tempStone = (Stone) board.getSouth();
-                int heuristicBefore = tempStone.getOwnHeuristic();
+            if(lastmove != "north" && board.getSouthNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getSouthNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
                 board.move("south");
-                int heuristicAfter = tempStone.getOwnHeuristic();
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
                 board.move("north");
                 int difference = heuristicAfter - heuristicBefore;
                 FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "south");
@@ -137,11 +136,11 @@ class FifteenSolver{
                     }
                 }           
             }
-            if(lastmove != "east" && board.getWest() != null){
-                Stone tempStone = (Stone) board.getWest();
-                int heuristicBefore = tempStone.getOwnHeuristic();
+            if(lastmove != "east" && board.getWestNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getWestNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
                 board.move("west");
-                int heuristicAfter = tempStone.getOwnHeuristic();
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
                 board.move("east");
                 int difference = heuristicAfter - heuristicBefore;
                 FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "west");

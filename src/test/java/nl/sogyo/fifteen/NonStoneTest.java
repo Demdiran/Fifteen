@@ -7,112 +7,112 @@ public class NonStoneTest{
 
     @Test
     public void TestNonStoneHasNorth(){
-        NonStone nonStone = new NonStone();
-        Stone north = (Stone) nonStone.getNorth();
+        BoardHole nonStone = new BoardHole();
+        BoardStone north = (BoardStone) nonStone.getNorthNeighbour();
         assert(north != null);
     }
 
     @Test
     public void TestGetNorthConsistent(){
-        NonStone nonStone = new NonStone();
-        Stone north1 = (Stone) nonStone.getNorth();
-        Stone north2 = (Stone) nonStone.getNorth();
+        BoardHole nonStone = new BoardHole();
+        BoardStone north1 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone north2 = (BoardStone) nonStone.getNorthNeighbour();
         assertEquals(north1, north2);
     }
 
     @Test
     public void Test3North(){
-        NonStone nonStone = new NonStone();
-        Stone north3 = (Stone) nonStone.getStepsNorth(3);
+        BoardHole nonStone = new BoardHole();
+        BoardStone north3 = (BoardStone) nonStone.getStepsNorth(3);
         int value4 = north3.getValue();
         assertEquals(4, value4);
     }
 
     @Test
     public void TestNonStoneHasEast(){
-        NonStone nonStone = new NonStone();
-        Stone east = (Stone) nonStone.getEast();
+        BoardHole nonStone = new BoardHole();
+        BoardStone east = (BoardStone) nonStone.getEastNeighbour();
         assert(east == null);
     }
 
     @Test
     public void TestGetEastConsistent(){
-        NonStone nonStone = new NonStone();
-        Stone east1 = (Stone) nonStone.getEast();
-        Stone east2 = (Stone) nonStone.getEast();
+        BoardHole nonStone = new BoardHole();
+        BoardStone east1 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone east2 = (BoardStone) nonStone.getEastNeighbour();
         assertEquals(east1, east2);
     }
 
     @Test
     public void TestNonStoneHasSouth(){
-        NonStone nonStone = new NonStone();
-        Stone south = (Stone) nonStone.getSouth();
+        BoardHole nonStone = new BoardHole();
+        BoardStone south = (BoardStone) nonStone.getSouthNeighbour();
         assert(south == null);
     }
 
     @Test
     public void TestGetSouthConsistent(){
-        NonStone nonStone = new NonStone();
-        Stone south1 = (Stone) nonStone.getSouth();
-        Stone south2 = (Stone) nonStone.getSouth();
+        BoardHole nonStone = new BoardHole();
+        BoardStone south1 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone south2 = (BoardStone) nonStone.getSouthNeighbour();
         assertEquals(south1, south2);
     }
 
     @Test
     public void TestNonStoneHasWest(){
-        NonStone nonStone = new NonStone();
-        Stone west = (Stone) nonStone.getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone west = (BoardStone) nonStone.getWestNeighbour();
         assert(west != null);
     }
 
     @Test
     public void TestGetWestConsistent(){
-        NonStone nonStone = new NonStone();
-        Stone west1 = (Stone) nonStone.getWest();
-        Stone west2 = (Stone) nonStone.getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone west1 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone west2 = (BoardStone) nonStone.getWestNeighbour();
         assertEquals(west1, west2);
     }
 
     @Test
     public void TestWestValue(){
-        NonStone nonStone = new NonStone();
-        Stone west = (Stone) nonStone.getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone west = (BoardStone) nonStone.getWestNeighbour();
         assertEquals(15, west.getValue());
     }
 
     @Test
     public void TestWestHasWest(){
-        NonStone nonStone = new NonStone();
-        Stone west = (Stone) nonStone.getWest();
-        Stone westwest = (Stone) west.getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone west = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone westwest = (BoardStone) west.getWestNeighbour();
         assert(westwest != null);
         assert(westwest != west);
     }
 
     @Test
     public void TestWestWestValue(){
-        NonStone nonStone = new NonStone();
-        Stone westwest = (Stone) nonStone.getWest().getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone westwest = (BoardStone) nonStone.getWestNeighbour().getWestNeighbour();
         int wwvalue = westwest.getValue();
         assertEquals(14, wwvalue);
     }
 
     @Test
     public void Test3West(){
-        NonStone nonStone = new NonStone();
-        Stone stone13 = (Stone) nonStone.getStepsWest(3);
+        BoardHole nonStone = new BoardHole();
+        BoardStone stone13 = (BoardStone) nonStone.getStepsWest(3);
         int value13 = stone13.getValue();
         assertEquals(13, value13);
     }
 
     @Test
     public void TestMoveNorthOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
-        Stone stone12 = (Stone) nonStone.getSouth();
-        Stone stone11 = (Stone) nonStone.getWest();
-        Stone stone8 = (Stone) nonStone.getNorth();
-        Stone none = (Stone) nonStone.getEast();
+        BoardStone stone12 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone11 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone8 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone none = (BoardStone) nonStone.getEastNeighbour();
 
         assertEquals(12, stone12.getValue());
         assertEquals(11, stone11.getValue());
@@ -121,10 +121,10 @@ public class NonStoneTest{
     }
     @Test
     public void TestMoveNorthOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
-        Stone stone12 = (Stone) nonStone.getSouth();
-        Stone stone15 = (Stone) stone12.getWest();
+        BoardStone stone12 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone15 = (BoardStone) stone12.getWestNeighbour();
         
         TestNeighbours(nonStone);
         TestNeighbours(stone12);
@@ -133,12 +133,12 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveWestOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
-        Stone none = (Stone) nonStone.getSouth();
-        Stone stone14 = (Stone) nonStone.getWest();
-        Stone stone11 = (Stone) nonStone.getNorth();
-        Stone stone15 = (Stone) nonStone.getEast();
+        BoardStone none = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone14 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone11 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone stone15 = (BoardStone) nonStone.getEastNeighbour();
         assertEquals(15, stone15.getValue());
         assertEquals(11, stone11.getValue());
         assertEquals(14, stone14.getValue());
@@ -147,10 +147,10 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveWestOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
-        Stone stone15 = (Stone) nonStone.getEast();
-        Stone stone12 = (Stone) stone15.getNorth();
+        BoardStone stone15 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone12 = (BoardStone) stone15.getNorthNeighbour();
         
         assertEquals(12, stone12.getValue());
         assertEquals(15, stone15.getValue());
@@ -160,15 +160,15 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveWestNorthNorthOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
         nonStone.move("north");
         nonStone.move("north");
 
-        Stone stone7 = (Stone) nonStone.getSouth();
-        Stone stone6 = (Stone) nonStone.getWest();
-        Stone stone8 = (Stone) nonStone.getEast();
-        Stone stone3 = (Stone) nonStone.getNorth();
+        BoardStone stone7 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone6 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone8 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone3 = (BoardStone) nonStone.getNorthNeighbour();
 
         assertEquals(7, stone7.getValue());
         assertEquals(6, stone6.getValue());
@@ -178,15 +178,15 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveWestNorthNorthOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
         nonStone.move("north");
         nonStone.move("north");
 
-        Stone stone7 = (Stone) nonStone.getSouth();
-        Stone stone12 = (Stone) stone7.getEast();
-        Stone stone10 = (Stone) stone7.getWest();
-        Stone stone11 = (Stone) stone7.getSouth();
+        BoardStone stone7 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone12 = (BoardStone) stone7.getEastNeighbour();
+        BoardStone stone10 = (BoardStone) stone7.getWestNeighbour();
+        BoardStone stone11 = (BoardStone) stone7.getSouthNeighbour();
 
         assertEquals(12, stone12.getValue());
         assertEquals(11, stone11.getValue());
@@ -197,15 +197,15 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveNorthWestWestOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("west");
         nonStone.move("west");
         
-        Stone stone14 = (Stone) nonStone.getSouth();
-        Stone stone9 = (Stone) nonStone.getWest();
-        Stone stone10 = (Stone) nonStone.getEast();
-        Stone stone6 = (Stone) nonStone.getNorth();
+        BoardStone stone14 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone9 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone10 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone6 = (BoardStone) nonStone.getNorthNeighbour();
 
         assertEquals(6, stone6.getValue());
         assertEquals(10, stone10.getValue());
@@ -215,15 +215,15 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveNorthWestWestOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("west");
         nonStone.move("west");
 
-        Stone stone10 = (Stone) nonStone.getEast();
-        Stone stone7 = (Stone) stone10.getNorth();
-        Stone stone11 = (Stone) stone10.getEast();
-        Stone stone15 = (Stone) stone10.getSouth();
+        BoardStone stone10 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone7 = (BoardStone) stone10.getNorthNeighbour();
+        BoardStone stone11 = (BoardStone) stone10.getEastNeighbour();
+        BoardStone stone15 = (BoardStone) stone10.getSouthNeighbour();
 
         assertEquals(7, stone7.getValue());
         assertEquals(11, stone11.getValue());
@@ -234,13 +234,13 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveNorthThrice()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("north");
         nonStone.move("north");
 
-        Stone stone3 = (Stone) nonStone.getWest();
-        Stone stone4 = (Stone) nonStone.getSouth();
+        BoardStone stone3 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone4 = (BoardStone) nonStone.getSouthNeighbour();
 
         assertEquals(3, stone3.getValue());
         assertEquals(4, stone4.getValue());
@@ -248,16 +248,16 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveSouthOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("north");
         nonStone.move("west");
         nonStone.move("south");
 
-        Stone stone11 = (Stone) nonStone.getNorth();
-        Stone stone8 = (Stone) nonStone.getEast();
-        Stone stone15 = (Stone) nonStone.getSouth();
-        Stone stone10 = (Stone) nonStone.getWest();
+        BoardStone stone11 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone stone8 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone15 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone10 = (BoardStone) nonStone.getWestNeighbour();
 
         assertEquals(11, stone11.getValue());
         assertEquals(8, stone8.getValue());
@@ -267,16 +267,16 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveSouthOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("north");
         nonStone.move("west");
         nonStone.move("south");
 
-        Stone stone11 = (Stone) nonStone.getNorth();
-        Stone stone3 = (Stone) stone11.getNorth();
-        Stone stone6 = (Stone) stone11.getWest();
-        Stone stone7 = (Stone) stone11.getEast();
+        BoardStone stone11 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone stone3 = (BoardStone) stone11.getNorthNeighbour();
+        BoardStone stone6 = (BoardStone) stone11.getWestNeighbour();
+        BoardStone stone7 = (BoardStone) stone11.getEastNeighbour();
 
         assertEquals(3, stone3.getValue());
         assertEquals(6, stone6.getValue());
@@ -288,16 +288,16 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveEastOwnNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
         nonStone.move("west");
         nonStone.move("north");
         nonStone.move("east");
 
-        Stone stone7 = (Stone) nonStone.getNorth();
-        Stone stone12 = (Stone) nonStone.getEast();
-        Stone stone14 = (Stone) nonStone.getSouth();
-        Stone stone11 = (Stone) nonStone.getWest();
+        BoardStone stone7 = (BoardStone) nonStone.getNorthNeighbour();
+        BoardStone stone12 = (BoardStone) nonStone.getEastNeighbour();
+        BoardStone stone14 = (BoardStone) nonStone.getSouthNeighbour();
+        BoardStone stone11 = (BoardStone) nonStone.getWestNeighbour();
 
         assertEquals(7, stone7.getValue());
         assertEquals(12, stone12.getValue());
@@ -307,16 +307,16 @@ public class NonStoneTest{
 
     @Test
     public void TestMoveEastOtherNeighbours()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("west");
         nonStone.move("west");
         nonStone.move("north");
         nonStone.move("east");
 
-        Stone stone11 = (Stone) nonStone.getWest();
-        Stone stone6 = (Stone) stone11.getNorth();
-        Stone stone10 = (Stone) stone11.getSouth();
-        Stone stone9 = (Stone) stone11.getWest();
+        BoardStone stone11 = (BoardStone) nonStone.getWestNeighbour();
+        BoardStone stone6 = (BoardStone) stone11.getNorthNeighbour();
+        BoardStone stone10 = (BoardStone) stone11.getSouthNeighbour();
+        BoardStone stone9 = (BoardStone) stone11.getWestNeighbour();
         
         assertEquals(6, stone6.getValue());
         assertEquals(9, stone9.getValue());
@@ -327,33 +327,33 @@ public class NonStoneTest{
 
     @Test
     public void TestGenerateRandomPuzzle(){
-        NonStone nonStone = new NonStone();
-        nonStone.generatePuzzle(25);
+        BoardHole nonStone = new BoardHole();
+        nonStone.generateRandomPuzzle(25);
     }
 
     @Test
     public void TestIsSolvedTrue(){
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         assert(nonStone.isSolved());
     }
 
     @Test
     public void TestIsSolvedFalse()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         assert(!nonStone.isSolved());
     }
 
     @Test
     public void TestHeuristic1(){
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         int heuristic = nonStone.calculateHeuristic();
         assertEquals(0, heuristic);
     }
 
     @Test
     public void TestHeuristic2()throws InvalidMoveException{
-        NonStone nonStone = new NonStone();
+        BoardHole nonStone = new BoardHole();
         nonStone.move("north");
         nonStone.move("north");
         nonStone.move("west");
@@ -364,14 +364,14 @@ public class NonStoneTest{
         assertEquals(6, heuristic);
     }
 
-    private void TestNeighbours(SuperStone stone){
-        if(stone.getNorth() != null)
-            assertEquals(stone, stone.getNorth().getSouth(), "north failed");
-        if(stone.getWest() != null)
-            assertEquals(stone, stone.getWest().getEast(), "west failed");
-        if(stone.getEast() != null)
-            assertEquals(stone, stone.getEast().getWest(), "east failed");
-        if(stone.getSouth() != null)
-            assertEquals(stone, stone.getSouth().getNorth(), "south failed");
+    private void TestNeighbours(BoardPart stone){
+        if(stone.getNorthNeighbour() != null)
+            assertEquals(stone, stone.getNorthNeighbour().getSouthNeighbour(), "north failed");
+        if(stone.getWestNeighbour() != null)
+            assertEquals(stone, stone.getWestNeighbour().getEastNeighbour(), "west failed");
+        if(stone.getEastNeighbour() != null)
+            assertEquals(stone, stone.getEastNeighbour().getWestNeighbour(), "east failed");
+        if(stone.getSouthNeighbour() != null)
+            assertEquals(stone, stone.getSouthNeighbour().getNorthNeighbour(), "south failed");
     }
 }

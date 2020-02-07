@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.event.*;
 
 class StoneButton extends JButton implements ActionListener{
-    private NonStone nonStone;
+    private BoardHole boardAccess;
 
-    StoneButton(NonStone nonStone, String text){
+    StoneButton(BoardHole nonStone, String text){
         super(text);
-        this.nonStone = nonStone;
+        this.boardAccess = nonStone;
         this.addActionListener(this);
     }
 
@@ -16,17 +16,17 @@ class StoneButton extends JButton implements ActionListener{
         int xCoord = this.getX() / 100;
         int yCoord = this.getY() / 100;
         String direction = "";
-        SuperStone clicked = nonStone.getFromAbsolutePosition(xCoord, yCoord);
-        if(nonStone.getNorth() == clicked)
+        BoardPart clicked = boardAccess.getFromAbsolutePosition(xCoord, yCoord);
+        if(boardAccess.getNorthNeighbour() == clicked)
             direction = "north";
-        if(nonStone.getEast() == clicked)
+        if(boardAccess.getEastNeighbour() == clicked)
             direction = "east";    
-        if(nonStone.getSouth() == clicked)
+        if(boardAccess.getSouthNeighbour() == clicked)
             direction = "south";    
-        if(nonStone.getWest() == clicked)
+        if(boardAccess.getWestNeighbour() == clicked)
             direction = "west";
         try {
-            this.nonStone.move(direction);               
+            this.boardAccess.move(direction);               
         } catch (InvalidMoveException e) {
         }
         
@@ -36,7 +36,7 @@ class StoneButton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         moveStone();
         UserInterface frame = (UserInterface) this.getTopLevelAncestor();
-        if(this.nonStone.isSolved()){
+        if(this.boardAccess.isSolved()){
             frame.hasWon();
         }
         else{

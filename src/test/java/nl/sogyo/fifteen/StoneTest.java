@@ -7,37 +7,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StoneTest{
     @Test
     public void TestStoneHasEast(){
-        NonStone nonStone = new NonStone();
-        Stone stone11 = (Stone) nonStone.getNorth().getWest();
-        Stone stone12 = (Stone) stone11.getEast();
+        BoardHole nonStone = new BoardHole();
+        BoardStone stone11 = (BoardStone) nonStone.getNorthNeighbour().getWestNeighbour();
+        BoardStone stone12 = (BoardStone) stone11.getEastNeighbour();
         int value12 = stone12.getValue();
         assertEquals(12, value12);
     }
 
     @Test
     public void TestStoneHasEast2(){
-        NonStone nonStone = new NonStone();
-        Stone stone8 = (Stone) nonStone.getStepsNorth(2);
-        Stone stone5 = (Stone) stone8.getStepsWest(3);
-        Stone stone6 = (Stone) stone5.getEast();
+        BoardHole nonStone = new BoardHole();
+        BoardStone stone8 = (BoardStone) nonStone.getStepsNorth(2);
+        BoardStone stone5 = (BoardStone) stone8.getStepsWest(3);
+        BoardStone stone6 = (BoardStone) stone5.getEastNeighbour();
         int value6 = stone6.getValue();
         assertEquals(6, value6);
     }
 
     @Test
     public void TestStoneHasSouth(){
-        NonStone nonStone = new NonStone();
-        Stone stone11 = (Stone) nonStone.getNorth().getWest();
-        Stone stone15 = (Stone) stone11.getSouth();
+        BoardHole nonStone = new BoardHole();
+        BoardStone stone11 = (BoardStone) nonStone.getNorthNeighbour().getWestNeighbour();
+        BoardStone stone15 = (BoardStone) stone11.getSouthNeighbour();
         int value15 = stone15.getValue();
         assertEquals(15, value15);
     }
 
     @Test
     public void TestCreationConsistency(){
-        NonStone nonStone = new NonStone();
-        Stone stone11_1 = (Stone) nonStone.getWest().getNorth();
-        Stone stone11_2 = (Stone) nonStone.getNorth().getWest();
+        BoardHole nonStone = new BoardHole();
+        BoardStone stone11_1 = (BoardStone) nonStone.getWestNeighbour().getNorthNeighbour();
+        BoardStone stone11_2 = (BoardStone) nonStone.getNorthNeighbour().getWestNeighbour();
         assertEquals(stone11_1, stone11_2);        
     }
 }
