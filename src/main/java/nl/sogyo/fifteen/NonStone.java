@@ -164,4 +164,11 @@ class NonStone extends SuperStone{
                 exNorth.south = this.west;
         }
     }
+
+    boolean trySolution(ArrayList<String> solution)throws InvalidMoveException{
+        for (String move : solution) {
+            this.move(move);
+        }
+        return this.isSolved();
+    }
 }
