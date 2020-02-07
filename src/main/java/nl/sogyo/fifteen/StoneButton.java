@@ -6,9 +6,9 @@ import java.awt.event.*;
 class StoneButton extends JButton implements ActionListener{
     private BoardHole boardAccess;
 
-    StoneButton(BoardHole nonStone, String text){
+    StoneButton(BoardHole boardAccess, String text){
         super(text);
-        this.boardAccess = nonStone;
+        this.boardAccess = boardAccess;
         this.addActionListener(this);
     }
 
