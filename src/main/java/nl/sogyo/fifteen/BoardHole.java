@@ -12,8 +12,8 @@ class BoardHole extends BoardPart{
     boolean isSolved(){
         if(this.northNeighbour == null || this.westNeighbour == null)
             return false;
-        boolean northSolved = (((BoardStone) this.northNeighbour).getValue() == 12) && this.northNeighbour.isSolved();
-        boolean westSolved = (((BoardStone) this.westNeighbour).getValue() == 15 && this.westNeighbour.isSolved());
+        boolean northSolved = this.northNeighbour.isSolved();
+        boolean westSolved = this.westNeighbour.isSolved();
         return westSolved && northSolved;
     }
 

@@ -6,31 +6,47 @@ class BoardStone extends BoardPart{
     BoardStone(int value){
         this.value = value;
         boolean isLeftOfBoard = value % 4 == 1;
+        boolean isTopOfBoard = value <= 4;
         if(!isLeftOfBoard){
             this.westNeighbour = new BoardStone(value - 1);
         }
-        if(value > 4){
+        if(!isTopOfBoard){
             this.northNeighbour = new BoardStone(value - 4);
         }
     }
 
     boolean isSolved(){
-        boolean northSolved;
-        boolean westSolved;
-        if(this.northNeighbour == null && this.value - 4 <= 0)
-            northSolved = true;
-        else if(this.northNeighbour == null)
+        if(this.calculateOwnHeuristic() != 0)
             return false;
-        else
-            northSolved = (((BoardStone) this.northNeighbour).getValue() == this.value - 4) && this.northNeighbour.isSolved();
-
-        if(this.westNeighbour == null && this.value % 4 == 1)
-            westSolved = true;
-        else if(this.westNeighbour == null)
-            westSolved = false;
-        else
-            westSolved = (((BoardStone) this.westNeighbour).getValue() == this.value - 1 && this.westNeighbour.isSolved());
+        boolean northSolved = this.checkNorthNeighbour();
+        boolean westSolved = this.checkWestNeighbour();
         return westSolved && northSolved;
+    }
+
+    private boolean checkNorthNeighbour(){
+        if(this.hasNorthNeighbour())
+            return this.northNeighbour.isSolved();
+        else{
+            boolean shouldHaveNorthNeighbour = this.value > 4;
+            return !shouldHaveNorthNeighbour;
+        }
+    }
+
+    private boolean hasNorthNeighbour(){
+        return this.northNeighbour != null;
+    }
+
+    private boolean checkWestNeighbour(){
+        if(this.hasWestNeighbour())
+            return this.westNeighbour.isSolved();
+        else{
+            boolean shouldHaveWestNeighbour = this.value % 4 != 1;
+            return !shouldHaveWestNeighbour;
+        }
+    }
+
+    private boolean hasWestNeighbour(){
+        return this.westNeighbour != null;
     }
 
     @Override

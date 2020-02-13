@@ -3,7 +3,7 @@ package nl.sogyo.fifteen;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-public class NonStoneTest{
+public class BoardHoleTest{
 
     @Test
     public void TestNonStoneHasNorth(){
@@ -339,9 +339,16 @@ public class NonStoneTest{
 
     @Test
     public void TestIsSolvedFalse()throws InvalidMoveException{
-        BoardHole nonStone = new BoardHole();
-        nonStone.move("north");
-        assert(!nonStone.isSolved());
+        BoardHole board = new BoardHole();
+        board.move("north");
+        board.move("west");
+        board.move("west");
+        board.move("north");
+        board.move("east");
+        board.move("south");
+        board.move("east");
+        board.move("south");
+        assert(!board.isSolved());
     }
 
     @Test
