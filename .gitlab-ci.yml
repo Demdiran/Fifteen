@@ -1,9 +1,8 @@
+image: maven:latest
+
 stages:
     - build
     - test
-
-before_script:
-    - mvn install
 
 build:
     stage: build
