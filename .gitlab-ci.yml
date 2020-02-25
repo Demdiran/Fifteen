@@ -16,8 +16,7 @@ test1:
         - mvn test
     artifacts:
         paths:
-            - target/site/jacoco/index.html
-            - target/jacoco.exec
+            - target/site/jacoco/
 
 pages:
     stage: deploy
