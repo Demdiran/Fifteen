@@ -4,6 +4,7 @@ stages:
 
 before_script:
     -mvn install
+    
 build:
     stage: build
     script:
