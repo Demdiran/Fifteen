@@ -15,4 +15,4 @@ test:
         - mvn test
     artifacts:
         paths:
-            - site/
+            - target/site/
