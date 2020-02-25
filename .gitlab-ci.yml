@@ -2,15 +2,15 @@ stages:
     -build
     -test
 
-    
+
 build:
     stage: build
     script:
-    -mvn install
+        -mvn install
         -mvn compile
         
 test:
     stage: test
     script:
-    -mvn install
+        -mvn install
         -mvn test
