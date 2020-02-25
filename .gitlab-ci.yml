@@ -2,15 +2,15 @@ stages:
     - build
     - test
 
+before_script:
+    - mvn install
 
 build:
     stage: build
     script:
-        - mvn install
         - mvn compile
         
 test:
     stage: test
     script:
-        - mvn install
         - mvn test
