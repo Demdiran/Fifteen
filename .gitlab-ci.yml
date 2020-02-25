@@ -15,4 +15,17 @@ test:
         - mvn test
     artifacts:
         paths:
-            - target/site/
+            - target/site/jacoco/index.html
+
+pages:
+    stage: deploy
+    dependencies:
+        - test
+    script:
+        - mv target/site/jacoco/ public/
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+    only:
+        - master
