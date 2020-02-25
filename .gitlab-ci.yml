@@ -1,16 +1,16 @@
 stages:
-    -build
-    -test
+    - build
+    - test
 
 
 build:
     stage: build
     script:
-        -mvn install
-        -mvn compile
+        - mvn install
+        - mvn compile
         
 test:
     stage: test
     script:
-        -mvn install
-        -mvn test
+        - mvn install
+        - mvn test
