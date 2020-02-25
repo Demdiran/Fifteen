@@ -4,12 +4,12 @@ stages:
     - build
     - test
 
-build:
+build1:
     stage: build
     script:
         - mvn compile
         
-test:
+test1:
     stage: test
     script:
         - mvn test
@@ -20,7 +20,7 @@ test:
 pages:
     stage: deploy
     dependencies:
-        - test
+        - test1
     script:
         - mv target/site/jacoco/ public/
     artifacts:
