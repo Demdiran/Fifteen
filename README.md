@@ -1,1 +1,0 @@
-[![Coverage report](https://gitlab.com/gitlab-org/gitlab-ce/badges/master/coverage.svg?job=coverage)](http://sogyo.gitlab.io/public)
