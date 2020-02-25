@@ -3,41 +3,41 @@ package nl.sogyo.fifteen;
 import java.util.*;
 class FifteenSolver{
     private int heuristic;
-    private int move;
+    private String move;
     private FifteenSolver parent;
     private ArrayList<FifteenSolver> children;
-    private Stone board;
-    private Stone emptyStone;
+    private BoardHole board;
 
-    public static ArrayList<Integer> solveFifteenPuzzle(Stone board){
-        FifteenSolver origin = new FifteenSolver(board);
+    public static ArrayList<String> solveFifteenPuzzle(BoardHole board){
+        FifteenSolver rootNode = new FifteenSolver(board);
         boolean foundSolution = false;
-        if(origin.heuristic == 0){
+        if(rootNode.heuristic == 0){
             foundSolution = true;
         }
 
         while(!foundSolution){
             try {
-                foundSolution = origin.solveStep();                
+                foundSolution = rootNode.solveStep();                
             } catch (InvalidMoveException e) {
                 e.printStackTrace();
+                foundSolution = true;
             }
         }
-        ArrayList<Integer> result = origin.getSolution();
+        ArrayList<String> result = rootNode.getSolution();
         result.remove(0);
         return result;
     }
 
-    private ArrayList<Integer> getSolution(){
+    private ArrayList<String> getSolution(){
         if(this.heuristic == -1){
-            ArrayList<Integer> solution = new ArrayList<>();
+            ArrayList<String> solution = new ArrayList<>();
             solution.add(this.move);
             return solution;
         }
         else{
             for(FifteenSolver s : this.children){
                 if(s.heuristic < 1){
-                    ArrayList<Integer> solution = s.getSolution();
+                    ArrayList<String> solution = s.getSolution();
                     solution.add(0, this.move);
                     return solution;
                 }
@@ -46,16 +46,14 @@ class FifteenSolver{
         }
     }
 
-    private FifteenSolver(Stone board){
+    private FifteenSolver(BoardHole board){
         this.board = board;
         this.heuristic = board.calculateHeuristic();
-        this.emptyStone = board.getEmptyStone();
-        this.move = emptyStone.getCoordAsInt();
+        this.move = "";
     }
 
-    private FifteenSolver(Stone board, Stone emptyStone, int heuristic, FifteenSolver parent, int move){
+    private FifteenSolver(BoardHole board, int heuristic, FifteenSolver parent, String move){
         this.board = board;
-        this.emptyStone = emptyStone;
         this.heuristic = heuristic;
         this.parent = parent;
         this.move = move;
@@ -63,69 +61,105 @@ class FifteenSolver{
 
     private boolean solveStep()throws InvalidMoveException{
         if(this.parent != null){
-            this.board.doMove(move);
+            this.board.move(move);
         }
         if(this.heuristic == 0){
             if(this.parent != null){
-                this.board.doMove(this.parent.move);
+                this.moveBack();
             }
             this.heuristic = -1;
             return true;
         }
         if(children == null){
             children = new ArrayList<>();
-            if(emptyStone.getEast() != null){
-                int nextMove = emptyStone.getEast().getCoordAsInt();
-                int heuristicBefore = emptyStone.getEast().calculateIndividualHeuristic();
-                board.doMove(nextMove);
-                int heuristicAfter = emptyStone.getWest().calculateIndividualHeuristic();
-                board.doMove(nextMove - 1);
-                int nextHeuristic = this.heuristic - 1;
-                if(heuristicBefore - heuristicAfter != 1){
-                    nextHeuristic += 2;
-                }
-                children.add(new FifteenSolver(board, emptyStone, nextHeuristic, this, nextMove));
+            String lastmove = "";
+            if(this.parent != null){
+                lastmove = this.move;
             }
-            if(emptyStone.getSouth() != null){
-                int nextMove = emptyStone.getSouth().getCoordAsInt();
-                int heuristicBefore = emptyStone.getSouth().calculateIndividualHeuristic();
-                board.doMove(nextMove);
-                int heuristicAfter = emptyStone.getNorth().calculateIndividualHeuristic();
-                board.doMove(nextMove - 4);
-                int nextHeuristic = this.heuristic - 1;
-                if(heuristicBefore - heuristicAfter != 1){
-                    nextHeuristic += 2;
+            if(lastmove != "south" && board.getNorthNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getNorthNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
+                board.move("north");
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
+                board.move("south");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "north");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
                 }
-                children.add(new FifteenSolver(board, emptyStone, nextHeuristic, this, nextMove));
             }
-            if(emptyStone.getWest() != null){
-                int nextMove = emptyStone.getWest().getCoordAsInt();
-                int heuristicBefore = emptyStone.getWest().calculateIndividualHeuristic();
-                board.doMove(nextMove);
-                int heuristicAfter = emptyStone.getEast().calculateIndividualHeuristic();
-                board.doMove(nextMove + 1);
-                int nextHeuristic = this.heuristic - 1;
-                if(heuristicBefore - heuristicAfter != 1){
-                    nextHeuristic += 2;
+            if(lastmove != "west" && board.getEastNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getEastNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
+                board.move("east");
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
+                board.move("west");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "east");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
                 }
-                children.add(new FifteenSolver(board, emptyStone, nextHeuristic, this, nextMove));
             }
-            if(emptyStone.getNorth() != null){
-                int nextMove = emptyStone.getNorth().getCoordAsInt();
-                int heuristicBefore = emptyStone.getNorth().calculateIndividualHeuristic();
-                board.doMove(nextMove);
-                int heuristicAfter = emptyStone.getSouth().calculateIndividualHeuristic();
-                board.doMove(nextMove + 4);
-                int NextHeuristic = this.heuristic - 1;
-                if(heuristicBefore - heuristicAfter != 1){
-                    NextHeuristic += 2;
-                }
-                children.add(new FifteenSolver(board, emptyStone, NextHeuristic, this, nextMove));
+            if(lastmove != "north" && board.getSouthNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getSouthNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
+                board.move("south");
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
+                board.move("north");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "south");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                }           
+            }
+            if(lastmove != "east" && board.getWestNeighbour() != null){
+                BoardStone tempStone = (BoardStone) board.getWestNeighbour();
+                int heuristicBefore = tempStone.calculateOwnHeuristic();
+                board.move("west");
+                int heuristicAfter = tempStone.calculateOwnHeuristic();
+                board.move("east");
+                int difference = heuristicAfter - heuristicBefore;
+                FifteenSolver child = new FifteenSolver(board, this.heuristic + difference, this, "west");
+                children.add(child);
+                if(difference == -1){
+                    boolean foundSolution = child.solveStep();
+                    if(foundSolution){
+                        if(this.parent != null){
+                            this.moveBack();
+                        }
+                        this.heuristic = 0;
+                        return true;
+                    }
+                } 
             }
             this.updateHeuristic();
             Collections.shuffle(this.children);
             if(this.parent != null){
-                this.board.doMove(parent.move);
+                this.moveBack();
             }
             return false;
         }
@@ -139,7 +173,7 @@ class FifteenSolver{
             }
             this.updateHeuristic();
             if(this.parent != null){
-                this.board.doMove(this.parent.move);
+                this.moveBack();
             }
             if(foundSolution){
                 this.heuristic = 0;
@@ -156,5 +190,16 @@ class FifteenSolver{
             }
         }
         this.heuristic = minimumHeuristicOfNextStep + 1;
+    }
+
+    private void moveBack()throws InvalidMoveException{
+        if(this.move == "north")
+            this.board.move("south");
+        if(this.move == "east")
+            this.board.move("west");
+        if(this.move == "south")
+            this.board.move("north");
+        if(this.move == "west")
+            this.board.move("east");
     }
 }

@@ -2,14 +2,15 @@ package nl.sogyo.fifteen;
 
 import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.*;
+import java.util.ArrayList;
 
 public class FifteenSolverTest{
     @Test
-    public void TestSolver(){
-        Stone stone1 = new Stone();
-        stone1.generateNewPuzzle(25);
-        int[] solution = ArrayUtils.toPrimitive(FifteenSolver.solveFifteenPuzzle(stone1).toArray(new Integer[0]));
-        boolean isSolver = stone1.trySolution(solution);
+    public void TestSolver()throws InvalidMoveException{
+        BoardHole boardAccess = new BoardHole();
+        boardAccess.generateRandomPuzzle(50);
+        ArrayList<String> solution = FifteenSolver.solveFifteenPuzzle(boardAccess);
+        boolean isSolver = boardAccess.testSolution(solution);
         assert(isSolver);
     }
 }
