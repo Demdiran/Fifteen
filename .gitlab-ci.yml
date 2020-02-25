@@ -17,6 +17,7 @@ test1:
     artifacts:
         paths:
             - target/site/jacoco/index.html
+            - target/jacoco.exec
 
 pages:
     stage: deploy
