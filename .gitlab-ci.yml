@@ -37,6 +37,7 @@ docker:
     dependencies:
     script:
         - echo $dockerww
+        - echo "test"
         - docker login -u demdiran -p $dockerww
         - docker image build -t fifteen:1.1 .
         - docker image tag fifteen:1.1 demdiran/fifteen:1.1
