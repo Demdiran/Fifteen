@@ -14,8 +14,7 @@ determine version:
   stage: preparation
   tags: 
     - docker
-  image:
-    name: gittools/gitversion
+  image: gittools/gitversion
     entrypoint: /bin/bash
   script:
     - pwd
