@@ -30,3 +30,12 @@ pages:
         expire_in: 30 days
     only:
         - master
+
+docker:
+    stage: deploy
+    script:
+        - docker image build -t fifteen:1.1 .
+        - docker image tag fifteen:1.1 demdiran/fifteen:1.1
+        - docker image push demdiran/fifteen:1.1
+    only:
+        - master
