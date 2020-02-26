@@ -6,16 +6,10 @@ stages:
     - test
     - deploy
 
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
 
 determine version:
   stage: preparation
-  tags: 
-    - docker
   image: gittools/gitversion
-    entrypoint: /bin/bash
   script:
     - pwd
     - cat version.txt
