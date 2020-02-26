@@ -37,6 +37,7 @@ test1:
     stage: test
     script:
         - mvn test
+        - cat target/site/jacoco/index.html
     artifacts:
         paths:
             - target/site/jacoco/
@@ -59,6 +60,7 @@ docker:
     image: docker:latest
     dependencies:
     script:
+        - echo $dockerww | docker login -u demdiran --password-stdin
         - docker image build -t fifteen:1.1 .
         - docker image tag fifteen:1.1 demdiran/fifteen:1.1
         - docker image push demdiran/fifteen:1.1
