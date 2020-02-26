@@ -50,7 +50,7 @@ docker:
 
         -   while IFS='=' read -r key value
         -   do
-        -       if [ ! -z "$key" ]
+        -       if [ ! -z $key ]
         -       then
         -           echo $key
         -           echo $value
