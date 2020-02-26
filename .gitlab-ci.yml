@@ -50,13 +50,9 @@ docker:
 
         -   while IFS='=' read -r key value
         -   do
-        -       if [ -z $key ]
-        -       then
-        -           echo $key
-        -           echo $value
-        -           key=$(echo $key | tr '.' '_')
-        -           eval ${key}=\${value}
-        -       fi
+        -      echo $key
+        -      echo $value
+        -      key=$(echo $key | tr '.' '_')
         -   done < "$file"
 
         -   echo "User Id       = " $git_commit_id_abbrev
