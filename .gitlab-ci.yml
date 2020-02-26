@@ -33,6 +33,7 @@ pages:
 
 docker:
     stage: deploy
+    image: docker:latest
     dependencies:
     script:
         - docker image build -t fifteen:1.1 .
