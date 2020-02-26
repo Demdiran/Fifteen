@@ -50,6 +50,8 @@ docker:
 
         -   while IFS='=' read -r key value
         -   do
+        -     echo $key
+        -     echo $value
         -     key=$(echo $key | tr '.' '_')
         -     eval ${key}=\${value}
         -   done < "$file"
