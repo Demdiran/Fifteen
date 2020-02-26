@@ -18,8 +18,8 @@ determine version:
     entrypoint: /bin/bash
   script:
     - pwd
-    - dotnet /app/GitVersion.dll /output json /showvariable FullSemVer > version.txt
     - cat version.txt
+    - dotnet /app/GitVersion.dll /output json /showvariable FullSemVer > version.txt
   artifacts:
     paths:
       - version.txt
