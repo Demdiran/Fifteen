@@ -20,6 +20,7 @@ test1:
         paths:
             - target/site/jacoco/
             - target/git.properties
+        expire_in: 10 minutes
 
 pages:
     stage: deploy
