@@ -33,10 +33,10 @@ pages:
 
 docker:
     stage: deploy
-    image: docker:dind
+    image: docker:latest
     dependencies:
     script:
-        - docker login -u demdiran -p $dockerww
+        - echo $dockerww | docker login -u demdiran --password-stdin
         - docker image build -t fifteen:1.1 .
         - docker image tag fifteen:1.1 demdiran/fifteen:1.1
         - docker image push demdiran/fifteen:1.1
