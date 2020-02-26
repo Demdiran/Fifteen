@@ -43,7 +43,7 @@ docker:
     dependencies:
     script:
         - file="./target/git.properties"
-        
+        - head -n -1 $file > temp.properties ; mv temp.properties $file
         - if [ -f "$file" ]
         - then
         -   echo "$file found."
