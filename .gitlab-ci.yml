@@ -14,8 +14,9 @@ determine version:
   stage: preparation
   tags: 
     - docker
-  image: gittools/gitversion
-    - entrypoint: /bin/bash
+  image: 
+    name: gittools/gitversion
+    entrypoint: /bin/bash
   script:
     - pwd
     - dotnet /app/GitVersion.dll /output json /showvariable FullSemVer > version.txt
