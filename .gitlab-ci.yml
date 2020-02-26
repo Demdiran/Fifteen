@@ -43,6 +43,21 @@ docker:
     dependencies:
     script:
         - file="./target/git.properties"
+        
+        - if [ -f "$file" ]
+        - then
+        -   echo "$file found."
+
+        -   while IFS='=' read -r key value
+        -   do
+        -     key=$(echo $key | tr '.' '_')
+        -     eval ${key}=\${value}
+        -   done < "$file"
+
+        -   echo "User Id       = " ${git_commit_id_abbrev}
+        - else
+        -   echo "$file not found."
+        - fi
         - echo $dockerww | docker login -u demdiran --password-stdin
         - docker image build -t fifteen:1.1 .
         - docker image tag fifteen:1.1 demdiran/fifteen:1.1
