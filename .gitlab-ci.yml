@@ -1,23 +1,9 @@
 image: maven:latest
 
 stages:
-    - preparation
     - build
     - test
     - deploy
-
-
-determine version:
-  stage: preparation
-  image: gittools/gitversion
-  script:
-    - pwd
-    - cat version.txt
-    - dotnet /app/GitVersion.dll /output json /showvariable FullSemVer > version.txt
-  artifacts:
-    paths:
-      - version.txt
-    expire_in: 1 hr
 
 build1:
     stage: build
