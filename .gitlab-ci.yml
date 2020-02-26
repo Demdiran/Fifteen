@@ -1,9 +1,32 @@
 image: maven:latest
 
 stages:
+    - preparation
     - build
     - test
     - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_HOST: "tcp://docker:2375"
+
+determine-version:
+  stage: preparation
+  tags: 
+    - docker
+  image: docker:latest
+  services:
+    - docker:dind
+
+  script:
+    - pwd
+    - docker run --rm -v "$(pwd):/repo" gittools/gitversion:latest-linux-netcoreapp2.2 /repo /output json /showvariable FullSemVer > version.txt
+    - cat version.txt
+  artifacts:
+    paths:
+      - version.txt
+    expire_in: 1 hr
 
 build1:
     stage: build
