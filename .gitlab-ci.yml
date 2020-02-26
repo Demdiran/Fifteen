@@ -15,7 +15,7 @@ determine version:
   tags: 
     - docker
   image: gittools/gitversion
-    entrypoint: /bin/bash
+    - entrypoint: /bin/bash
   script:
     - pwd
     - dotnet /app/GitVersion.dll /output json /showvariable FullSemVer > version.txt
