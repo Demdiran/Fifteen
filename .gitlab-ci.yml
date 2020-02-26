@@ -41,7 +41,7 @@ docker:
     image: docker:latest
     dependencies:
     script:
-        - file = "target/git.properties"        
+        - file = "./target/git.properties"        
         - if [ -f "$file" ]
         - then
         - echo "$file found."
