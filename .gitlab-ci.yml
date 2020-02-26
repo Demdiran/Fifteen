@@ -51,6 +51,7 @@ docker:
         -   while IFS='=' read -r key value
         -   do
         -       if [ ! -z "$key" ]
+        -       then
         -           echo $key
         -           echo $value
         -           key=$(echo $key | tr '.' '_')
