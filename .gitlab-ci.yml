@@ -47,7 +47,18 @@ docker:
         - if [ -f "$file" ]
         - then
         -   echo "$file found."
-        -   echo "User Id       = " ${git.commit.id.abbrev}
+
+        -   while IFS='=' read -r key value
+        -   do
+        -       if [ ! -z "$key" ]
+        -           echo $key
+        -           echo $value
+        -           key=$(echo $key | tr '.' '_')
+        -           eval ${key}=\${value}
+        -       fi
+        -   done < "$file"
+
+        -   echo "User Id       = " ${git_commit_id_abbrev}
         - else
         -   echo "$file not found."
         - fi
