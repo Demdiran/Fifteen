@@ -37,7 +37,6 @@ pages:
 
 docker:
     stage: deploy
-    image: docker:latest
     dependencies:
     script:
         #- echo $dockerww | docker login -u demdiran --password-stdin
