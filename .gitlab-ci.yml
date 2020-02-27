@@ -1,4 +1,7 @@
-image: maven:latest
+
+image: docker:latest
+before_script:
+    - echo $dockerww | docker login -u demdiran --password-stdin
 
 stages:
     - build
@@ -12,6 +15,7 @@ build1:
         
 test1:
     stage: test
+    image: maven:latest
     script:
         - mvn test
         - cat target/site/jacoco/index.html
@@ -24,6 +28,7 @@ test1:
 
 pages:
     stage: deploy
+    image: maven:latest
     dependencies:
         - test1
     script:
@@ -37,16 +42,17 @@ pages:
 
 docker:
     stage: deploy
+    image: maven:latest
     dependencies:
     script:
         #- echo $dockerww | docker login -u demdiran --password-stdin
-        - mvn package
+        - mvn deploy
         #- docker-compose up
         #- mvn deploy
         #- docker image push demdiran/fifteen:1.1
     artifacts:
         paths:
-            - target/
+            - /
         expire_in: 10 min
     only:
         - master
