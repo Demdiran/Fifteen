@@ -20,13 +20,6 @@ test1:
             - target/site/jacoco/
         expire_in: 10 minutes
 
-docker_login:
-    stage: test
-    image: docker:latest
-    dependencies:
-    script:
-        - echo $dockerww | docker login -u demdiran --password-stdin
-
 pages:
     stage: deploy
     image: maven:latest
@@ -49,7 +42,7 @@ docker_push:
     dependencies:
         - docker_login
     script:
-        - apk --install docker-ce
+        - apt --install docker-ce
         - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
     only:
