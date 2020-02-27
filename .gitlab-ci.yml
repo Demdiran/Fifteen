@@ -10,6 +10,7 @@ stages:
 
 build1:
     stage: build
+    image: maven:latest
     script:
         - mvn compile
         
