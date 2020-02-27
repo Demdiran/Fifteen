@@ -49,6 +49,8 @@ docker_push:
     dependencies:
         - docker_login
     script:
+        - apk --install docker-ce
+        - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
     only:
         - master
