@@ -38,10 +38,10 @@ pages:
 
 docker_push:
     stage: deploy
-    image: maven:latest
+    image: docker:latest
     dependencies:
     script:
-        - apt install docker-ce
+        - apt install maven
         - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
     only:
