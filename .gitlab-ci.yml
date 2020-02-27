@@ -38,30 +38,11 @@ pages:
 docker:
     stage: deploy
     dependencies:
-        - test1
-    image: docker:latest
-    dependencies:
     script:
-        - file="./target/git.properties"
-        - head -n -1 $file > temp.properties ; mv temp.properties $file
-        - if [ -f "$file" ]
-        - then
-        -   echo "$file found."
-
-        -   while IFS='=' read -r key value
-        -   do
-        -      echo $key
-        -      echo $value
-        -      key=$(echo $key | tr '.' '_')
-        -   done < "$file"
-
-        -   echo "User Id       = " $git_commit_id_abbrev
-        - else
-        -   echo "$file not found."
-        - fi
         - echo $dockerww | docker login -u demdiran --password-stdin
-        - docker image build -t fifteen:1.1 .
-        - docker image tag fifteen:1.1 demdiran/fifteen:1.1
+        - mvn package
+        - mvn io.fabric8:docker-maven-plugin:build
+        - mvn deploy
         - docker image push demdiran/fifteen:1.1
     only:
         - master
