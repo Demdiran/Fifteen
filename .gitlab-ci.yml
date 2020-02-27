@@ -40,10 +40,14 @@ docker:
     image: docker:latest
     dependencies:
     script:
-        - echo $dockerww | docker login -u demdiran --password-stdin
+        #- echo $dockerww | docker login -u demdiran --password-stdin
         - mvn package
-        - docker-compose up
-        - mvn deploy
-        - docker image push demdiran/fifteen:1.1
+        #- docker-compose up
+        #- mvn deploy
+        #- docker image push demdiran/fifteen:1.1
+    artifacts:
+        paths:
+            - target/
+        expire_in: 10 min
     only:
         - master
