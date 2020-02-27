@@ -38,11 +38,11 @@ pages:
 
 docker_push:
     stage: deploy
-    image: docker:latest
+    image: maven:latest
     dependencies:
     script:
-        - apt install maven
-        - echo $dockerww | docker login -u demdiran --password-stdin
+        - mvn -Ddockerww=$dockerww install
+        # - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
     only:
         - master
