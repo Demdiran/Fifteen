@@ -109,7 +109,7 @@
                     <executions>
                         <execution>
                             <id>build-docker-image</id>
-                            <phase>none</phase>
+                            <phase>package</phase>
                             <goals>
                                 <goal>build</goal>
                             </goals>
