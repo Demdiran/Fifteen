@@ -1,3 +1,5 @@
+services:
+    - docker:latest
 
 
 stages:
@@ -17,11 +19,9 @@ test1:
     script:
         - mvn test
         - cat target/site/jacoco/index.html
-        - mvn pl.project13.maven:git-commit-id-plugin:revision
     artifacts:
         paths:
             - target/site/jacoco/
-            - target/git.properties
         expire_in: 10 minutes
 
 pages:
@@ -43,14 +43,7 @@ docker:
     image: maven:latest
     dependencies:
     script:
-        #- echo $dockerww | docker login -u demdiran --password-stdin
+        - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
-        #- docker-compose up
-        #- mvn deploy
-        #- docker image push demdiran/fifteen:1.1
-    artifacts:
-        paths:
-            - /
-        expire_in: 10 min
     only:
         - master
