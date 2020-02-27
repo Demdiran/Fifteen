@@ -78,10 +78,10 @@
                     <configuration>
                         <!-- a) use "docker login" up front to store the credentials on the local machine. -->
                         <!-- or b) comment in the following snippet: -->
-                        <!--<authConfig>-->
-                            <!--<username>phauer</username>-->
-                            <!--<password>docker123</password>-->
-                        <!--</authConfig>-->
+                        <authConfig>
+                            <username>demdiran</username>
+                            <password>TevensNuttigen</password>
+                        </authConfig>
                         <images>
                             <image>
                                 <name>${docker.repository.name}:${version.number}</name>

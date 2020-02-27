@@ -1,7 +1,4 @@
 
-image: docker:latest
-before_script:
-    - echo $dockerww | docker login -u demdiran --password-stdin
 
 stages:
     - build
