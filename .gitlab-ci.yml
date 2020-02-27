@@ -19,13 +19,13 @@ test1:
         paths:
             - target/site/jacoco/
         expire_in: 10 minutes
-        
+
 docker_login:
     stage: test
     image: docker:latest
     dependencies:
     script:
-        - echo $dockerww | docker login -u demdiran --password_stdin
+        - echo $dockerww | docker login -u demdiran --password-stdin
 
 pages:
     stage: deploy
