@@ -41,8 +41,7 @@ docker_push:
     image: docker:latest
     dependencies:
     script:
-        - apt-get
-         install maven
+        - apt install maven
         - echo $dockerww | docker login -u demdiran --password-stdin
         - mvn deploy
     only:
