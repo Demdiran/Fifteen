@@ -40,7 +40,6 @@ docker_push:
     stage: deploy
     image: maven:latest
     dependencies:
-        - docker_login
     script:
         - apt --install docker-ce
         - echo $dockerww | docker login -u demdiran --password-stdin
