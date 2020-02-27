@@ -34,10 +34,19 @@ pages:
     only:
         - master
 
-docker:
+docker_login:
+    stage: deploy
+    image: docker:latest
+    dependencies:
+    script:
+        - echo $dockerww | docker login -u demdiran --password_stdin
+
+
+docker_push:
     stage: deploy
     image: maven:latest
     dependencies:
+        - docker_login
     script:
         - mvn deploy
     only:
